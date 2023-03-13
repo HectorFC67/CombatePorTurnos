@@ -58,7 +58,6 @@ public class Personaje {
 		this.velocidad = velocidad;
 	}
 
-	// modificarlo y hacerlo con los string normal ya separados ARREGLAR ESTA CLASE Y LA DE JUGADOR PARA PODER RECIBIR Y HACER DAÑO
 	public void calcularDanyo(Personaje defensor) {
 
 		int danyo = this.danyoBase;

@@ -60,7 +60,7 @@ public class VentanaCombate extends JFrame{
 
 		atacarAliado.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
-
+				
 			}
 		});
 		descansarAliado.addActionListener(new ActionListener() {        
@@ -181,7 +181,7 @@ public class VentanaCombate extends JFrame{
 
 		atacarEnemigo.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
-
+				
 			}
 		});
 		descansarEnemigo.addActionListener(new ActionListener() {        

@@ -30,7 +30,7 @@ public class VentanaCombatePrevio extends JFrame {
 
 	public VentanaCombatePrevio(String equipoSeleccionado, String equipoNoSeleccionado) {
 		super("Preparación del combate");
-		setBounds(500, 225, 1000, 625);
+		setSize(1000, 625);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		String[] equipoSeleccionadoList = equipoSeleccionado.split("-");
