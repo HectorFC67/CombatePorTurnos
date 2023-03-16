@@ -309,41 +309,180 @@ public class VentanaCombate extends JFrame{
 	{
 		String primerJugadorSeleccionado = equipoSeleccionadoList[0].toLowerCase();
 		String primerJugadorNoSeleccionado = equipoNoSeleccionadoList[0].toLowerCase();
+		String segundoJugadorSeleccionado = equipoSeleccionadoList[1].toUpperCase();
+		String segundoJugadorNoSeleccionado = equipoNoSeleccionadoList[1].toUpperCase();
+		String tercerJugadorSeleccionado = equipoSeleccionadoList[2].toUpperCase();
+		String tercerJugadorNoSeleccionado = equipoNoSeleccionadoList[2].toUpperCase();
 		if (primerJugadorSeleccionado.equals("berserker") && primerJugadorNoSeleccionado.equals("berserker")) {
 
 			imgFondo = "img/combate-berserker-berserker.png";
+			listaPersonajesAliados[0] = berserkerAliado;
+			listaPersonajesEnemigos[0] = berserkerEnemigo;
+			if(segundoJugadorSeleccionado.equals(balisticaAliado.getTipo().name())) {
+				listaPersonajesAliados[1] = balisticaAliado;
+				listaPersonajesAliados[2] = tanqueAliado;
+			}else if(segundoJugadorNoSeleccionado.equals(balisticaEnemigo.getTipo().name())) {
+				listaPersonajesEnemigos[1] = balisticaEnemigo;
+				listaPersonajesEnemigos[2] = tanqueEnemigo;
+			}else if(segundoJugadorSeleccionado.equals(tanqueAliado.getTipo().name())) {
+				listaPersonajesAliados[1] = tanqueAliado;
+				listaPersonajesAliados[2] = balisticaAliado;
+			}else if(segundoJugadorNoSeleccionado.equals(tanqueEnemigo.getTipo().name())) {
+				listaPersonajesEnemigos[1] = tanqueEnemigo;
+				listaPersonajesEnemigos[2] = balisticaEnemigo;
+			}
 
 		} else if (primerJugadorSeleccionado.equals("balistica") && primerJugadorNoSeleccionado.equals("balistica")) {
 
 			imgFondo = "img/combate-balistica-balistica.png";
+			listaPersonajesAliados[0] = balisticaAliado;
+			listaPersonajesEnemigos[0] = balisticaEnemigo;
+			if(segundoJugadorSeleccionado.equals(berserkerAliado.getTipo().name())) {
+				listaPersonajesAliados[1] = berserkerAliado;
+				listaPersonajesAliados[2] = tanqueAliado;
+			}else if(segundoJugadorNoSeleccionado.equals(berserkerEnemigo.getTipo().name())) {
+				listaPersonajesEnemigos[1] = berserkerEnemigo;
+				listaPersonajesEnemigos[2] = tanqueEnemigo;
+			}else if(segundoJugadorSeleccionado.equals(tanqueAliado.getTipo().name())) {
+				listaPersonajesAliados[1] = tanqueAliado;
+				listaPersonajesAliados[2] = berserkerAliado;
+			}else if(segundoJugadorNoSeleccionado.equals(tanqueEnemigo.getTipo().name())) {
+				listaPersonajesEnemigos[1] = tanqueEnemigo;
+				listaPersonajesEnemigos[2] = berserkerEnemigo;
+			}
 
 		} else if (primerJugadorSeleccionado.equals("tanque") && primerJugadorNoSeleccionado.equals("tanque")) {
 
 			imgFondo = ("img/combate-tanque-tanque.png");
+			listaPersonajesAliados[0] = tanqueAliado;
+			listaPersonajesEnemigos[0] = tanqueEnemigo;
+			if(segundoJugadorSeleccionado.equals(berserkerAliado.getTipo().name())) {
+				listaPersonajesAliados[1] = berserkerAliado;
+				listaPersonajesAliados[2] = balisticaAliado;
+			}else if(segundoJugadorNoSeleccionado.equals(berserkerEnemigo.getTipo().name())) {
+				listaPersonajesEnemigos[1] = berserkerEnemigo;
+				listaPersonajesEnemigos[2] = balisticaEnemigo;
+			}else if(segundoJugadorSeleccionado.equals(balisticaAliado.getTipo().name())) {
+				listaPersonajesAliados[1] = balisticaAliado;
+				listaPersonajesAliados[2] = berserkerAliado;
+			}else if(segundoJugadorNoSeleccionado.equals(balisticaEnemigo.getTipo().name())) {
+				listaPersonajesEnemigos[1] = balisticaEnemigo;
+				listaPersonajesEnemigos[2] = berserkerEnemigo;
+			}
 
 		} else if (primerJugadorSeleccionado.equals("berserker") && primerJugadorNoSeleccionado.equals("balistica")) {
 
 			imgFondo = ("img/combate-berserker-balistica.png");
-
+			listaPersonajesAliados[0] = berserkerAliado;
+			listaPersonajesEnemigos[0] = balisticaEnemigo;
+			if(segundoJugadorSeleccionado.equals(balisticaAliado.getTipo().name())) {
+				listaPersonajesAliados[1] = balisticaAliado;
+				listaPersonajesAliados[2] = tanqueAliado;
+			}else if(segundoJugadorNoSeleccionado.equals(berserkerEnemigo.getTipo().name())) {
+				listaPersonajesEnemigos[1] = berserkerEnemigo;
+				listaPersonajesEnemigos[2] = tanqueEnemigo;
+			}else if(segundoJugadorSeleccionado.equals(tanqueAliado.getTipo().name())) {
+				listaPersonajesAliados[1] = tanqueAliado;
+				listaPersonajesAliados[2] = balisticaAliado;
+			}else if(segundoJugadorNoSeleccionado.equals(tanqueEnemigo.getTipo().name())) {
+				listaPersonajesEnemigos[1] = tanqueEnemigo;
+				listaPersonajesEnemigos[2] = berserkerEnemigo;
+			}
+			
 		} else if (primerJugadorSeleccionado.equals("berserker") && primerJugadorNoSeleccionado.equals("tanque")) {
 
 			imgFondo = "img/combate-berserker-tanque.png";
+			listaPersonajesAliados[0] = berserkerAliado;
+			listaPersonajesEnemigos[0] = tanqueEnemigo;
+			if(segundoJugadorSeleccionado.equals(balisticaAliado.getTipo().name())) {
+				listaPersonajesAliados[1] = balisticaAliado;
+				listaPersonajesAliados[2] = tanqueAliado;
+			}else if(segundoJugadorNoSeleccionado.equals(berserkerEnemigo.getTipo().name())) {
+				listaPersonajesEnemigos[1] = berserkerEnemigo;
+				listaPersonajesEnemigos[2] = balisticaEnemigo;
+			}else if(segundoJugadorSeleccionado.equals(tanqueAliado.getTipo().name())) {
+				listaPersonajesAliados[1] = tanqueAliado;
+				listaPersonajesAliados[2] = balisticaAliado;
+			}else if(segundoJugadorNoSeleccionado.equals(balisticaEnemigo.getTipo().name())) {
+				listaPersonajesEnemigos[1] = balisticaEnemigo;
+				listaPersonajesEnemigos[2] = berserkerEnemigo;
+			}
 
 		} else if (primerJugadorSeleccionado.equals("balistica") && primerJugadorNoSeleccionado.equals("tanque")) {
 
 			imgFondo = "img/combate-balistica-tanque.png";
+			listaPersonajesAliados[0] = balisticaAliado;
+			listaPersonajesEnemigos[0] = tanqueEnemigo;
+			if(segundoJugadorSeleccionado.equals(berserkerAliado.getTipo().name())) {
+				listaPersonajesAliados[1] = berserkerAliado;
+				listaPersonajesAliados[2] = tanqueAliado;
+			}else if(segundoJugadorNoSeleccionado.equals(balisticaEnemigo.getTipo().name())) {
+				listaPersonajesEnemigos[1] = balisticaEnemigo;
+				listaPersonajesEnemigos[2] = berserkerEnemigo;
+			}else if(segundoJugadorSeleccionado.equals(tanqueAliado.getTipo().name())) {
+				listaPersonajesAliados[1] = tanqueAliado;
+				listaPersonajesAliados[2] = berserkerAliado;
+			}else if(segundoJugadorNoSeleccionado.equals(berserkerEnemigo.getTipo().name())) {
+				listaPersonajesEnemigos[1] = berserkerEnemigo;
+				listaPersonajesEnemigos[2] = balisticaEnemigo;
+			}
 
 		} else if ( primerJugadorSeleccionado.equals("balistica") && primerJugadorNoSeleccionado.equals("berserker")) {
 
 			imgFondo = "img/combate-balistica-berserker.png";
+			listaPersonajesAliados[0] = balisticaAliado;
+			listaPersonajesEnemigos[0] = berserkerEnemigo;
+			if(segundoJugadorSeleccionado.equals(berserkerAliado.getTipo().name())) {
+				listaPersonajesAliados[1] = berserkerAliado;
+				listaPersonajesAliados[2] = tanqueAliado;
+			}else if(segundoJugadorNoSeleccionado.equals(balisticaEnemigo.getTipo().name())) {
+				listaPersonajesEnemigos[1] = balisticaEnemigo;
+				listaPersonajesEnemigos[2] = tanqueEnemigo;
+			}else if(segundoJugadorSeleccionado.equals(tanqueAliado.getTipo().name())) {
+				listaPersonajesAliados[1] = tanqueAliado;
+				listaPersonajesAliados[2] = berserkerAliado;
+			}else if(segundoJugadorNoSeleccionado.equals(tanqueEnemigo.getTipo().name())) {
+				listaPersonajesEnemigos[1] = tanqueEnemigo;
+				listaPersonajesEnemigos[2] = balisticaEnemigo;
+			}
 
 		} else if (primerJugadorSeleccionado.equals("tanque") && primerJugadorNoSeleccionado.equals("berserker")) {
 
 			imgFondo = "img/combate-tanque-berserker.png";
+			listaPersonajesAliados[0] = tanqueAliado;
+			listaPersonajesEnemigos[0] = berserkerEnemigo;
+			if(segundoJugadorSeleccionado.equals(balisticaAliado.getTipo().name())) {
+				listaPersonajesAliados[1] = balisticaAliado;
+				listaPersonajesAliados[2] = berserkerAliado;
+			}else if(segundoJugadorNoSeleccionado.equals(balisticaEnemigo.getTipo().name())) {
+				listaPersonajesEnemigos[1] = balisticaEnemigo;
+				listaPersonajesEnemigos[2] = tanqueEnemigo;
+			}else if(segundoJugadorSeleccionado.equals(berserkerAliado.getTipo().name())) {
+				listaPersonajesAliados[1] = tanqueAliado;
+				listaPersonajesAliados[2] = balisticaAliado;
+			}else if(segundoJugadorNoSeleccionado.equals(tanqueEnemigo.getTipo().name())) {
+				listaPersonajesEnemigos[1] = tanqueEnemigo;
+				listaPersonajesEnemigos[2] = balisticaEnemigo;
+			}
 
 		} else if (primerJugadorSeleccionado.equals("tanque") && primerJugadorNoSeleccionado.equals("balistica")) {
 
 			imgFondo = "img/combate-tanque-balistica.png";
+			listaPersonajesAliados[0] = tanqueAliado;
+			listaPersonajesEnemigos[0] = balisticaEnemigo;
+			if(segundoJugadorSeleccionado.equals(balisticaAliado.getTipo().name())) {
+				listaPersonajesAliados[1] = balisticaAliado;
+				listaPersonajesAliados[2] = berserkerAliado;
+			}else if(segundoJugadorNoSeleccionado.equals(berserkerEnemigo.getTipo().name())) {
+				listaPersonajesEnemigos[1] = berserkerEnemigo;
+				listaPersonajesEnemigos[2] = tanqueEnemigo;
+			}else if(segundoJugadorSeleccionado.equals(berserkerAliado.getTipo().name())) {
+				listaPersonajesAliados[1] = berserkerAliado;
+				listaPersonajesAliados[2] = balisticaAliado;
+			}else if(segundoJugadorNoSeleccionado.equals(tanqueEnemigo.getTipo().name())) {
+				listaPersonajesEnemigos[1] = tanqueEnemigo;
+				listaPersonajesEnemigos[2] = berserkerEnemigo;
+			}
 		} else {
 
 			System.out.println("No se encontro la imagen de fondo");
