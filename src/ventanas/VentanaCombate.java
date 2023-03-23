@@ -14,6 +14,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
 import metodos.Personaje;
@@ -39,8 +40,23 @@ public class VentanaCombate extends JFrame{
 	private Personaje[] listaPersonajesAliados;
 	private Personaje[] listaPersonajesEnemigos;
 	
-	
 	private JLabel fondo;
+	
+    private JProgressBar pbSalud;
+    private JProgressBar pbEstamina;
+    
+    private int saludMaximaBerserker = 150;
+    private int saludMaximaBalistica = 100;
+    private int saludMaximaTanque = 200;
+    
+    private int saludMaximaAliado = 0;
+    private int saludAliado = 0;
+    private int saludMaximaEnemigo = 0;
+    private int saludEnemigo = 0;
+    private int estaminaMaximaAliado = 0;
+    private int estaminaAliado = 0;
+    private int estaminaMaximaEnemigo = 0;
+    private int estaminaEnemigo = 0;
 	
 	public VentanaCombate(String[] equipoSeleccionadoList, String[] equipoNoSeleccionadoList) {
 		super("Juego de combate");
@@ -62,12 +78,11 @@ public class VentanaCombate extends JFrame{
 		atacarAliado.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
 				listaPersonajesAliados[0].calcularDanyo(listaPersonajesEnemigos[0]);
-				System.out.println(listaPersonajesEnemigos[0].getSalud());
 			}
 		});
 		descansarAliado.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
-				
+				listaPersonajesAliados[0].descansar();
 			}
 		});
 		cambiarPersonajeAliado.addActionListener(new ActionListener() {        
@@ -183,12 +198,12 @@ public class VentanaCombate extends JFrame{
 
 		atacarEnemigo.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
-				
+				listaPersonajesEnemigos[0].calcularDanyo(listaPersonajesAliados[0]);
 			}
 		});
 		descansarEnemigo.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
-
+				listaPersonajesEnemigos[0].descansar();
 			}
 		});
 		cambiarPersonajeEnemigo.addActionListener(new ActionListener() {        
@@ -300,7 +315,16 @@ public class VentanaCombate extends JFrame{
 		panelBotones.add(panelEnemigo, BorderLayout.EAST);
 
 		add(panelBotones, BorderLayout.SOUTH);
-
+		
+		JPanel panelBarras = new JPanel( new BorderLayout() );
+		JPanel panelBarrasAliado = new JPanel();
+		JPanel panelBarrasEnemigo = new JPanel();
+		
+		
+		
+		panelBarras.add(panelBarrasAliado, BorderLayout.WEST);
+		panelBarras.add(panelBarrasEnemigo, BorderLayout.EAST);
+		
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -318,11 +342,19 @@ public class VentanaCombate extends JFrame{
 		String segundoJugadorNoSeleccionado = equipoNoSeleccionadoList[1].toUpperCase();
 		String tercerJugadorSeleccionado = equipoSeleccionadoList[2].toUpperCase();
 		String tercerJugadorNoSeleccionado = equipoNoSeleccionadoList[2].toUpperCase();
+		
 		if (primerJugadorSeleccionado.equals("berserker") && primerJugadorNoSeleccionado.equals("berserker")) {
 
 			imgFondo = "img/combate-berserker-berserker.png";
 			listaPersonajesAliados[0] = berserkerAliado;
 			listaPersonajesEnemigos[0] = berserkerEnemigo;
+			
+			saludAliado = listaPersonajesAliados[0].getSalud();
+			saludEnemigo = listaPersonajesEnemigos[0].getSalud();
+			estaminaAliado = listaPersonajesAliados[0].getEstamina();
+			estaminaEnemigo = listaPersonajesEnemigos[0].getEstamina();
+			
+			
 			if(segundoJugadorSeleccionado.equals(balisticaAliado.getTipo().name())) {
 				listaPersonajesAliados[1] = balisticaAliado;
 				listaPersonajesAliados[2] = tanqueAliado;
@@ -496,3 +528,27 @@ public class VentanaCombate extends JFrame{
 	}
 
 }
+
+
+/*pbSalud = new JProgressBar(0, saludMaxima);
+        pbSalud.setStringPainted(true);
+        pbSalud.setForeground(Color.GREEN);
+        panel.add(pbSalud);
+ 
+        // Crear la barra de progreso de la estamina
+        pbEstamina = new JProgressBar(0, estaminaMaxima);
+        pbEstamina.setStringPainted(true);
+        pbEstamina.setForeground(Color.BLUE);
+        panel.add(pbEstamina);
+ 
+        // Actualizar el valor y el máximo de cada barra de progreso
+        pbSalud.setValue(saludActual);
+        pbSalud.setMaximum(saludMaxima);
+        pbEstamina.setValue(estaminaActual);
+        pbEstamina.setMaximum(estaminaMaxima);
+ 
+        // Agregar el panel a la ventana y mostrarla
+        frame.getContentPane().add(panel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);*/

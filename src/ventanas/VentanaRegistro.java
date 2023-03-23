@@ -11,7 +11,10 @@ public class VentanaRegistro extends Frame implements ActionListener {
 
     public VentanaRegistro() {
         super("Registro");
-
+        setSize(400, 200);
+        setVisible(true);
+        setLocationRelativeTo(null);
+        
         lb1 = new Label("Nombre de usuario:");
         lb2 = new Label("Contraseña:");
         lb3 = new Label("");
@@ -21,7 +24,11 @@ public class VentanaRegistro extends Frame implements ActionListener {
 
         btn1 = new Button("Registrar");
         btn1.addActionListener(this);
-
+        lb3.setAlignment(Label.CENTER);
+        
+        Panel panel = new Panel(new FlowLayout(FlowLayout.CENTER));
+        panel.add(btn1);
+        
         setLayout(new GridLayout(3, 2));
 
         add(lb1);
@@ -38,37 +45,32 @@ public class VentanaRegistro extends Frame implements ActionListener {
             }
         });
 
-        setSize(300, 150);
-        setVisible(true);
     }
 
     public void actionPerformed(ActionEvent e) {
         String usuario = tf1.getText();
         String contrasena = tf2.getText();
+        if (usuario.isEmpty() || contrasena.isEmpty()) {
+        	
+            lb3.setText("Rellene usuario y contraseña.");
+            
+        } else {
+        	
+        	try {
+        		
+        		File archivoCSV = new File("historial.csv");
+        		BufferedWriter escritor = new BufferedWriter(new FileWriter(archivoCSV, true));
+        		escritor.write(usuario + "," + contrasena + "\n");
+        		escritor.close();
 
-        try {
-            File archivoCSV = new File("historial.csv");
+        		new VentanaPrincipal();
+        		dispose();
 
-            if (!archivoCSV.exists()) {
-                archivoCSV.createNewFile();
-                FileWriter escritor = new FileWriter(archivoCSV);
-                escritor.write("Usuario,Contraseña\n");
-                escritor.close();
-            }
-
-            BufferedWriter escritor = new BufferedWriter(new FileWriter(archivoCSV, true));
-            escritor.write(usuario + "," + contrasena + "\n");
-            escritor.close();
-
-            lb3.setText("Registro exitoso.");
-
-            // Abrir la ventana principal después de que se registre un usuario exitosamente
-            new VentanaPrincipal();
-            dispose();
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            lb3.setText("Error al guardar registro.");
+        	} catch (IOException ex) {
+        		
+        		ex.printStackTrace();
+        		
+        	}
         }
     }
 
