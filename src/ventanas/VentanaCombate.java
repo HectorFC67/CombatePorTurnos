@@ -39,6 +39,7 @@ public class VentanaCombate extends JFrame{
 	private Personaje[] listaPersonajesAliados;
 	private Personaje[] listaPersonajesEnemigos;
 	
+	
 	private JLabel fondo;
 	
 	public VentanaCombate(String[] equipoSeleccionadoList, String[] equipoNoSeleccionadoList) {
@@ -60,9 +61,8 @@ public class VentanaCombate extends JFrame{
 
 		atacarAliado.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
-				
-					
-				
+				listaPersonajesAliados[0].calcularDanyo(listaPersonajesEnemigos[0]);
+				System.out.println(listaPersonajesEnemigos[0].getSalud());
 			}
 		});
 		descansarAliado.addActionListener(new ActionListener() {        
@@ -309,6 +309,9 @@ public class VentanaCombate extends JFrame{
 
 	private String emparejamiento(String[] equipoSeleccionadoList, String[] equipoNoSeleccionadoList) 
 	{
+		listaPersonajesAliados = new Personaje[3];
+		listaPersonajesEnemigos = new Personaje[3];
+		
 		String primerJugadorSeleccionado = equipoSeleccionadoList[0].toLowerCase();
 		String primerJugadorNoSeleccionado = equipoNoSeleccionadoList[0].toLowerCase();
 		String segundoJugadorSeleccionado = equipoSeleccionadoList[1].toUpperCase();
