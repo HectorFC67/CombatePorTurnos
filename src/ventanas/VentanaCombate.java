@@ -1,6 +1,7 @@
 package ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -42,8 +43,8 @@ public class VentanaCombate extends JFrame{
 	
 	private JLabel fondo;
 	
-    private JProgressBar pbSalud;
-    private JProgressBar pbEstamina;
+    private JProgressBar pbSaludAliado;
+    private JProgressBar pbEstaminaAliado;
     
     private int saludMaximaBerserker = 150;
     private int saludMaximaBalistica = 100;
@@ -315,16 +316,7 @@ public class VentanaCombate extends JFrame{
 		panelBotones.add(panelEnemigo, BorderLayout.EAST);
 
 		add(panelBotones, BorderLayout.SOUTH);
-		
-		JPanel panelBarras = new JPanel( new BorderLayout() );
-		JPanel panelBarrasAliado = new JPanel();
-		JPanel panelBarrasEnemigo = new JPanel();
-		
-		
-		
-		panelBarras.add(panelBarrasAliado, BorderLayout.WEST);
-		panelBarras.add(panelBarrasEnemigo, BorderLayout.EAST);
-		
+
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -353,7 +345,8 @@ public class VentanaCombate extends JFrame{
 			saludEnemigo = listaPersonajesEnemigos[0].getSalud();
 			estaminaAliado = listaPersonajesAliados[0].getEstamina();
 			estaminaEnemigo = listaPersonajesEnemigos[0].getEstamina();
-			
+			saludMaximaAliado = saludMaximaBerserker;
+			saludMaximaEnemigo = saludMaximaBerserker;
 			
 			if(segundoJugadorSeleccionado.equals(balisticaAliado.getTipo().name())) {
 				listaPersonajesAliados[1] = balisticaAliado;
@@ -374,6 +367,14 @@ public class VentanaCombate extends JFrame{
 			imgFondo = "img/combate-balistica-balistica.png";
 			listaPersonajesAliados[0] = balisticaAliado;
 			listaPersonajesEnemigos[0] = balisticaEnemigo;
+			
+			saludAliado = listaPersonajesAliados[0].getSalud();
+			saludEnemigo = listaPersonajesEnemigos[0].getSalud();
+			estaminaAliado = listaPersonajesAliados[0].getEstamina();
+			estaminaEnemigo = listaPersonajesEnemigos[0].getEstamina();
+			saludMaximaAliado = saludMaximaBalistica;
+			saludMaximaEnemigo = saludMaximaBalistica;
+			
 			if(segundoJugadorSeleccionado.equals(berserkerAliado.getTipo().name())) {
 				listaPersonajesAliados[1] = berserkerAliado;
 				listaPersonajesAliados[2] = tanqueAliado;
@@ -393,6 +394,14 @@ public class VentanaCombate extends JFrame{
 			imgFondo = ("img/combate-tanque-tanque.png");
 			listaPersonajesAliados[0] = tanqueAliado;
 			listaPersonajesEnemigos[0] = tanqueEnemigo;
+			
+			saludAliado = listaPersonajesAliados[0].getSalud();
+			saludEnemigo = listaPersonajesEnemigos[0].getSalud();
+			estaminaAliado = listaPersonajesAliados[0].getEstamina();
+			estaminaEnemigo = listaPersonajesEnemigos[0].getEstamina();
+			saludMaximaAliado = saludMaximaTanque;
+			saludMaximaEnemigo = saludMaximaTanque;
+			
 			if(segundoJugadorSeleccionado.equals(berserkerAliado.getTipo().name())) {
 				listaPersonajesAliados[1] = berserkerAliado;
 				listaPersonajesAliados[2] = balisticaAliado;
@@ -412,6 +421,14 @@ public class VentanaCombate extends JFrame{
 			imgFondo = ("img/combate-berserker-balistica.png");
 			listaPersonajesAliados[0] = berserkerAliado;
 			listaPersonajesEnemigos[0] = balisticaEnemigo;
+			
+			saludAliado = listaPersonajesAliados[0].getSalud();
+			saludEnemigo = listaPersonajesEnemigos[0].getSalud();
+			estaminaAliado = listaPersonajesAliados[0].getEstamina();
+			estaminaEnemigo = listaPersonajesEnemigos[0].getEstamina();
+			saludMaximaAliado = saludMaximaBerserker;
+			saludMaximaEnemigo = saludMaximaBalistica;
+			
 			if(segundoJugadorSeleccionado.equals(balisticaAliado.getTipo().name())) {
 				listaPersonajesAliados[1] = balisticaAliado;
 				listaPersonajesAliados[2] = tanqueAliado;
@@ -431,6 +448,14 @@ public class VentanaCombate extends JFrame{
 			imgFondo = "img/combate-berserker-tanque.png";
 			listaPersonajesAliados[0] = berserkerAliado;
 			listaPersonajesEnemigos[0] = tanqueEnemigo;
+			
+			saludAliado = listaPersonajesAliados[0].getSalud();
+			saludEnemigo = listaPersonajesEnemigos[0].getSalud();
+			estaminaAliado = listaPersonajesAliados[0].getEstamina();
+			estaminaEnemigo = listaPersonajesEnemigos[0].getEstamina();
+			saludMaximaAliado = saludMaximaBerserker;
+			saludMaximaEnemigo = saludMaximaTanque;
+			
 			if(segundoJugadorSeleccionado.equals(balisticaAliado.getTipo().name())) {
 				listaPersonajesAliados[1] = balisticaAliado;
 				listaPersonajesAliados[2] = tanqueAliado;
@@ -450,6 +475,14 @@ public class VentanaCombate extends JFrame{
 			imgFondo = "img/combate-balistica-tanque.png";
 			listaPersonajesAliados[0] = balisticaAliado;
 			listaPersonajesEnemigos[0] = tanqueEnemigo;
+			
+			saludAliado = listaPersonajesAliados[0].getSalud();
+			saludEnemigo = listaPersonajesEnemigos[0].getSalud();
+			estaminaAliado = listaPersonajesAliados[0].getEstamina();
+			estaminaEnemigo = listaPersonajesEnemigos[0].getEstamina();
+			saludMaximaAliado = saludMaximaBalistica;
+			saludMaximaEnemigo = saludMaximaTanque;
+			
 			if(segundoJugadorSeleccionado.equals(berserkerAliado.getTipo().name())) {
 				listaPersonajesAliados[1] = berserkerAliado;
 				listaPersonajesAliados[2] = tanqueAliado;
@@ -469,6 +502,14 @@ public class VentanaCombate extends JFrame{
 			imgFondo = "img/combate-balistica-berserker.png";
 			listaPersonajesAliados[0] = balisticaAliado;
 			listaPersonajesEnemigos[0] = berserkerEnemigo;
+			
+			saludAliado = listaPersonajesAliados[0].getSalud();
+			saludEnemigo = listaPersonajesEnemigos[0].getSalud();
+			estaminaAliado = listaPersonajesAliados[0].getEstamina();
+			estaminaEnemigo = listaPersonajesEnemigos[0].getEstamina();
+			saludMaximaAliado = saludMaximaBalistica;
+			saludMaximaEnemigo = saludMaximaBerserker;
+			
 			if(segundoJugadorSeleccionado.equals(berserkerAliado.getTipo().name())) {
 				listaPersonajesAliados[1] = berserkerAliado;
 				listaPersonajesAliados[2] = tanqueAliado;
@@ -488,6 +529,14 @@ public class VentanaCombate extends JFrame{
 			imgFondo = "img/combate-tanque-berserker.png";
 			listaPersonajesAliados[0] = tanqueAliado;
 			listaPersonajesEnemigos[0] = berserkerEnemigo;
+			
+			saludAliado = listaPersonajesAliados[0].getSalud();
+			saludEnemigo = listaPersonajesEnemigos[0].getSalud();
+			estaminaAliado = listaPersonajesAliados[0].getEstamina();
+			estaminaEnemigo = listaPersonajesEnemigos[0].getEstamina();
+			saludMaximaAliado = saludMaximaTanque;
+			saludMaximaEnemigo = saludMaximaBerserker;
+			
 			if(segundoJugadorSeleccionado.equals(balisticaAliado.getTipo().name())) {
 				listaPersonajesAliados[1] = balisticaAliado;
 				listaPersonajesAliados[2] = berserkerAliado;
@@ -507,6 +556,14 @@ public class VentanaCombate extends JFrame{
 			imgFondo = "img/combate-tanque-balistica.png";
 			listaPersonajesAliados[0] = tanqueAliado;
 			listaPersonajesEnemigos[0] = balisticaEnemigo;
+			
+			saludAliado = listaPersonajesAliados[0].getSalud();
+			saludEnemigo = listaPersonajesEnemigos[0].getSalud();
+			estaminaAliado = listaPersonajesAliados[0].getEstamina();
+			estaminaEnemigo = listaPersonajesEnemigos[0].getEstamina();
+			saludMaximaAliado = saludMaximaTanque;
+			saludMaximaEnemigo = saludMaximaBalistica;
+			
 			if(segundoJugadorSeleccionado.equals(balisticaAliado.getTipo().name())) {
 				listaPersonajesAliados[1] = balisticaAliado;
 				listaPersonajesAliados[2] = berserkerAliado;
@@ -530,25 +587,26 @@ public class VentanaCombate extends JFrame{
 }
 
 
-/*pbSalud = new JProgressBar(0, saludMaxima);
-        pbSalud.setStringPainted(true);
-        pbSalud.setForeground(Color.GREEN);
-        panel.add(pbSalud);
- 
-        // Crear la barra de progreso de la estamina
-        pbEstamina = new JProgressBar(0, estaminaMaxima);
-        pbEstamina.setStringPainted(true);
-        pbEstamina.setForeground(Color.BLUE);
-        panel.add(pbEstamina);
- 
-        // Actualizar el valor y el máximo de cada barra de progreso
-        pbSalud.setValue(saludActual);
-        pbSalud.setMaximum(saludMaxima);
-        pbEstamina.setValue(estaminaActual);
-        pbEstamina.setMaximum(estaminaMaxima);
- 
-        // Agregar el panel a la ventana y mostrarla
-        frame.getContentPane().add(panel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);*/
+/*		JPanel panelBarras = new JPanel( new BorderLayout() );
+		JPanel panelBarrasAliado = new JPanel();
+		JPanel panelBarrasEnemigo = new JPanel();
+		
+		pbSaludAliado = new JProgressBar(0, saludMaximaAliado);
+		pbSaludAliado.setStringPainted(true);
+		pbSaludAliado.setForeground(Color.GREEN);
+        panelBarrasAliado.add(pbSaludAliado);
+        
+        pbEstaminaAliado = new JProgressBar(0, estaminaMaximaAliado);
+        pbEstaminaAliado.setStringPainted(true);
+        pbEstaminaAliado.setForeground(Color.BLUE);
+        panelBarrasAliado.add(pbEstaminaAliado);
+		
+        pbSaludAliado.setValue(saludAliado);
+        pbSaludAliado.setMaximum(saludMaximaAliado);
+        pbEstaminaAliado.setValue(estaminaAliado);
+        pbEstaminaAliado.setMaximum(estaminaMaximaAliado);
+        
+        
+		panelBarras.add(panelBarrasAliado, BorderLayout.WEST);
+		panelBarras.add(panelBarrasEnemigo, BorderLayout.EAST);
+		getContentPane().add(panelBarras);*/
