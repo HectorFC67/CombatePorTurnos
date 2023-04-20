@@ -32,6 +32,7 @@ public class VentanaPrincipal extends JFrame {
         JButton bCerrar = new JButton("Cerrar Juego");
 
         bIniciar.addActionListener(e -> {
+        	VentanaInicioSesion ventanaInicioSesion = new VentanaInicioSesion();
             VentanaEquipos ventanaEquipos = new VentanaEquipos();
             ventanaEquipos.setVisible(true);
             this.dispose();

@@ -58,6 +58,11 @@ public class VentanaCombate extends JFrame{
     private int estaminaAliado = 0;
     private int estaminaMaximaEnemigo = 0;
     private int estaminaEnemigo = 0;
+    
+    private boolean muerto = false;
+    
+    private boolean turnoAliado = false;
+    private boolean turnoEnemigo = false;
 	
 	public VentanaCombate(String[] equipoSeleccionadoList, String[] equipoNoSeleccionadoList) {
 		super("Juego de combate");
@@ -75,10 +80,12 @@ public class VentanaCombate extends JFrame{
 		JButton atacarAliado = new JButton("Atacar");
 		JButton descansarAliado = new JButton("Descansar");
 		JButton cambiarPersonajeAliado = new JButton("Cambiar Guerrero");
-
+		
 		atacarAliado.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
-				listaPersonajesAliados[0].calcularDanyo(listaPersonajesEnemigos[0]);
+				if(listaPersonajesAliados[0].getVelocidad()>listaPersonajesEnemigos[0].getVelocidad() ) {
+					listaPersonajesAliados[0].calcularDanyo(listaPersonajesEnemigos[0]);
+				}
 			}
 		});
 		descansarAliado.addActionListener(new ActionListener() {        
@@ -316,7 +323,11 @@ public class VentanaCombate extends JFrame{
 		panelBotones.add(panelEnemigo, BorderLayout.EAST);
 
 		add(panelBotones, BorderLayout.SOUTH);
-
+		JPanel pn = new JPanel();
+		JProgressBar pb = new JProgressBar();
+		pn.add(pb);
+		add(pn, BorderLayout.NORTH);
+		
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -332,8 +343,8 @@ public class VentanaCombate extends JFrame{
 		String primerJugadorNoSeleccionado = equipoNoSeleccionadoList[0].toLowerCase();
 		String segundoJugadorSeleccionado = equipoSeleccionadoList[1].toUpperCase();
 		String segundoJugadorNoSeleccionado = equipoNoSeleccionadoList[1].toUpperCase();
-		String tercerJugadorSeleccionado = equipoSeleccionadoList[2].toUpperCase();
-		String tercerJugadorNoSeleccionado = equipoNoSeleccionadoList[2].toUpperCase();
+		//String tercerJugadorSeleccionado = equipoSeleccionadoList[2].toUpperCase();
+		//String tercerJugadorNoSeleccionado = equipoNoSeleccionadoList[2].toUpperCase();
 		
 		if (primerJugadorSeleccionado.equals("berserker") && primerJugadorNoSeleccionado.equals("berserker")) {
 
@@ -581,7 +592,25 @@ public class VentanaCombate extends JFrame{
 
 			System.out.println("No se encontro la imagen de fondo");
 		}
+		turnos(turnoAliado, turnoEnemigo);
 		return imgFondo;
+	}
+	public void turnos(boolean turnoAliado, boolean turnoEnemigo) {
+		if(listaPersonajesAliados[0].getVelocidad()>listaPersonajesEnemigos[0].getVelocidad() ) {
+			turnoAliado = true;
+			turnoEnemigo = false;
+		}else if(listaPersonajesAliados[0].getVelocidad()<listaPersonajesEnemigos[0].getVelocidad() ) {
+			turnoAliado = false;
+			turnoEnemigo = true;
+		}else if (listaPersonajesAliados[0].getVelocidad()==listaPersonajesEnemigos[0].getVelocidad() ) {
+			if(turnoAliado == true) {
+				turnoAliado = false;
+				turnoEnemigo = true;
+			}else if(turnoEnemigo == true) {
+				turnoAliado = true;
+				turnoEnemigo = false;
+			}
+		}
 	}
 
 }
@@ -609,4 +638,4 @@ public class VentanaCombate extends JFrame{
         
 		panelBarras.add(panelBarrasAliado, BorderLayout.WEST);
 		panelBarras.add(panelBarrasEnemigo, BorderLayout.EAST);
-		getContentPane().add(panelBarras);*/
+		*/

@@ -10,6 +10,7 @@ public class Personaje {
 	private boolean prioridad = false;
 	private boolean prioridadAtaqueAnterior = false;
 	private boolean ataque = true;
+	private boolean muerto = false;
 
 	public Personaje(Tipos tipo, int salud, int danyoBase, int estamina, int velocidad) {
 		this.tipo = tipo;
@@ -128,4 +129,12 @@ public class Personaje {
 		}
 		return prioridad;
 	}
+	
+	public boolean isMuerto(Personaje defensor, boolean muerto) {
+		if(defensor.getSalud()<= 0) {
+			muerto = true;
+		}
+		return muerto;
+	}
+	
 }
