@@ -323,10 +323,24 @@ public class VentanaCombate extends JFrame{
 		panelBotones.add(panelEnemigo, BorderLayout.EAST);
 
 		add(panelBotones, BorderLayout.SOUTH);
-		JPanel pn = new JPanel();
-		JProgressBar pb = new JProgressBar();
-		pn.add(pb);
-		add(pn, BorderLayout.NORTH);
+		
+		JPanel panelBarrasAliado = new JPanel();
+		JProgressBar SaludAliado = new JProgressBar();
+		JProgressBar EstaminaAliado = new JProgressBar();
+		panelBarrasAliado.add(SaludAliado);
+		panelBarrasAliado.add(EstaminaAliado);
+		
+		JPanel panelBarrasEnemigo = new JPanel();
+		JProgressBar SaludEnemigo = new JProgressBar();
+		JProgressBar EstaminaEnemigo = new JProgressBar();
+		panelBarrasEnemigo.add(SaludEnemigo);
+		panelBarrasEnemigo.add(EstaminaEnemigo);
+		
+		JPanel panelBarras = new JPanel();
+		panelBarras.add(panelBarrasAliado, BorderLayout.WEST);
+		panelBarras.add(panelBarrasEnemigo, BorderLayout.EAST);
+		
+		add(panelBarras, BorderLayout.NORTH);
 		
 		pack();
 		setLocationRelativeTo(null);
