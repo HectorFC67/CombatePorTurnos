@@ -45,6 +45,8 @@ public class VentanaCombate extends JFrame{
 	
     private JProgressBar pbSaludAliado;
     private JProgressBar pbEstaminaAliado;
+    private JProgressBar pbSaludEnemigo;
+    private JProgressBar pbEstaminaEnemigo;
     
     private int saludMaximaBerserker = 150;
     private int saludMaximaBalistica = 100;
@@ -68,7 +70,29 @@ public class VentanaCombate extends JFrame{
 		super("Juego de combate");
 		setSize(800, 500);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		
+		JPanel panelBarrasAliado = new JPanel();
+		pbSaludAliado = new JProgressBar();
+		pbSaludAliado.setForeground(new Color(255, 0, 0));
+		pbEstaminaAliado = new JProgressBar();
+		pbEstaminaAliado.setForeground(new Color(75, 0, 130));
+		panelBarrasAliado.add(pbSaludAliado);
+		panelBarrasAliado.add(pbEstaminaAliado);
+		
+		JPanel panelBarrasEnemigo = new JPanel();
+		pbSaludEnemigo = new JProgressBar();
+		pbSaludEnemigo.setForeground(new Color(255, 0, 0));
+		pbEstaminaEnemigo = new JProgressBar();
+		pbEstaminaEnemigo.setForeground(new Color(75, 0, 130));
+		panelBarrasEnemigo.add(pbSaludEnemigo);
+		panelBarrasEnemigo.add(pbEstaminaEnemigo);
+		
+		JPanel panelBarras = new JPanel();
+		panelBarras.add(panelBarrasAliado, BorderLayout.WEST);
+		panelBarras.add(panelBarrasEnemigo, BorderLayout.EAST);
+		
+		add(panelBarras, BorderLayout.NORTH);
+		
 		imgFondo = emparejamiento(equipoSeleccionadoList, equipoNoSeleccionadoList);
 
 		fondo = new JLabel(new ImageIcon(imgFondo));
@@ -85,12 +109,15 @@ public class VentanaCombate extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if(listaPersonajesAliados[0].getVelocidad()>listaPersonajesEnemigos[0].getVelocidad() ) {
 					listaPersonajesAliados[0].calcularDanyo(listaPersonajesEnemigos[0]);
+					pbSaludEnemigo.setValue(listaPersonajesEnemigos[0].getSalud());
+					pbEstaminaAliado.setValue(listaPersonajesAliados[0].getEstamina());
 				}
 			}
 		});
 		descansarAliado.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
 				listaPersonajesAliados[0].descansar();
+				pbEstaminaAliado.setValue(listaPersonajesAliados[0].getEstamina());
 			}
 		});
 		cambiarPersonajeAliado.addActionListener(new ActionListener() {        
@@ -207,11 +234,14 @@ public class VentanaCombate extends JFrame{
 		atacarEnemigo.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
 				listaPersonajesEnemigos[0].calcularDanyo(listaPersonajesAliados[0]);
+				pbSaludAliado.setValue(listaPersonajesAliados[0].getSalud());
+				pbEstaminaEnemigo.setValue(listaPersonajesEnemigos[0].getEstamina());
 			}
 		});
 		descansarEnemigo.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
 				listaPersonajesEnemigos[0].descansar();
+				pbEstaminaEnemigo.setValue(listaPersonajesEnemigos[0].getEstamina());
 			}
 		});
 		cambiarPersonajeEnemigo.addActionListener(new ActionListener() {        
@@ -323,24 +353,6 @@ public class VentanaCombate extends JFrame{
 		panelBotones.add(panelEnemigo, BorderLayout.EAST);
 
 		add(panelBotones, BorderLayout.SOUTH);
-		
-		JPanel panelBarrasAliado = new JPanel();
-		JProgressBar SaludAliado = new JProgressBar();
-		JProgressBar EstaminaAliado = new JProgressBar();
-		panelBarrasAliado.add(SaludAliado);
-		panelBarrasAliado.add(EstaminaAliado);
-		
-		JPanel panelBarrasEnemigo = new JPanel();
-		JProgressBar SaludEnemigo = new JProgressBar();
-		JProgressBar EstaminaEnemigo = new JProgressBar();
-		panelBarrasEnemigo.add(SaludEnemigo);
-		panelBarrasEnemigo.add(EstaminaEnemigo);
-		
-		JPanel panelBarras = new JPanel();
-		panelBarras.add(panelBarrasAliado, BorderLayout.WEST);
-		panelBarras.add(panelBarrasEnemigo, BorderLayout.EAST);
-		
-		add(panelBarras, BorderLayout.NORTH);
 		
 		pack();
 		setLocationRelativeTo(null);
@@ -606,9 +618,12 @@ public class VentanaCombate extends JFrame{
 
 			System.out.println("No se encontro la imagen de fondo");
 		}
+		establecerSalud(saludMaximaAliado, saludAliado, saludMaximaEnemigo, saludEnemigo);
+		establecerEstamina(estaminaMaximaAliado, estaminaAliado, estaminaMaximaEnemigo, estaminaEnemigo);
 		turnos(turnoAliado, turnoEnemigo);
 		return imgFondo;
 	}
+	
 	public void turnos(boolean turnoAliado, boolean turnoEnemigo) {
 		if(listaPersonajesAliados[0].getVelocidad()>listaPersonajesEnemigos[0].getVelocidad() ) {
 			turnoAliado = true;
@@ -626,30 +641,21 @@ public class VentanaCombate extends JFrame{
 			}
 		}
 	}
+	
+	public void establecerSalud(int saludMaximaAliado, int saludAliado, int saludMaximaEnemigo, int saludEnemigo) {
+		pbSaludAliado.setMaximum(saludMaximaAliado);
+		pbSaludAliado.setValue(saludAliado);
+		
+		pbSaludEnemigo.setMaximum(saludMaximaEnemigo);
+		pbSaludEnemigo.setValue(saludEnemigo);
+	}
+	
+	public void establecerEstamina(int estaminaMaximaAliado, int estaminaAliado, int estaminaMaximaEnemigo, int estaminaEnemigo) {
+		pbEstaminaAliado.setMaximum(estaminaMaximaAliado);
+		pbEstaminaAliado.setValue(estaminaAliado);
+		
+		pbEstaminaEnemigo.setMaximum(estaminaMaximaEnemigo);
+		pbEstaminaEnemigo.setValue(estaminaEnemigo);
+	}
 
 }
-
-
-/*		JPanel panelBarras = new JPanel( new BorderLayout() );
-		JPanel panelBarrasAliado = new JPanel();
-		JPanel panelBarrasEnemigo = new JPanel();
-		
-		pbSaludAliado = new JProgressBar(0, saludMaximaAliado);
-		pbSaludAliado.setStringPainted(true);
-		pbSaludAliado.setForeground(Color.GREEN);
-        panelBarrasAliado.add(pbSaludAliado);
-        
-        pbEstaminaAliado = new JProgressBar(0, estaminaMaximaAliado);
-        pbEstaminaAliado.setStringPainted(true);
-        pbEstaminaAliado.setForeground(Color.BLUE);
-        panelBarrasAliado.add(pbEstaminaAliado);
-		
-        pbSaludAliado.setValue(saludAliado);
-        pbSaludAliado.setMaximum(saludMaximaAliado);
-        pbEstaminaAliado.setValue(estaminaAliado);
-        pbEstaminaAliado.setMaximum(estaminaMaximaAliado);
-        
-        
-		panelBarras.add(panelBarrasAliado, BorderLayout.WEST);
-		panelBarras.add(panelBarrasEnemigo, BorderLayout.EAST);
-		*/
