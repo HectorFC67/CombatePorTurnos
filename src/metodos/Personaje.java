@@ -12,12 +12,13 @@ public class Personaje {
 	private boolean ataque = true;
 	private boolean muerto = false;
 
-	public Personaje(Tipos tipo, int salud, int danyoBase, int estamina, int velocidad) {
+	public Personaje(Tipos tipo, int salud, int danyoBase, int estamina, int velocidad, boolean muerto) {
 		this.tipo = tipo;
 		this.salud = salud;
 		this.danyoBase = danyoBase;
 		this.estamina = estamina;
 		this.velocidad = velocidad;
+		this.muerto = muerto;
 	}
 
 	public Tipos getTipo() {
@@ -85,7 +86,7 @@ public class Personaje {
 		}
 		defensor.salud -= danyo;
 		System.out.println(danyo+"-->"+defensor.salud);
-		
+		this.estamina --;
 	}
 	public void descansar() {
 		this.estamina ++;
@@ -98,38 +99,6 @@ public class Personaje {
 		}
 		
 		return ataque;
-	}
-
-	public boolean prioridadAtaque(Personaje defensor) {
-		int velocidadMia = this.velocidad;
-		int velocidadRival = defensor.getVelocidad();
-
-		if(velocidadMia > velocidadRival) {
-			prioridad = true;
-			prioridadAtaqueAnterior = true;
-		}else if(velocidadMia < velocidadRival) {
-			prioridad = false;
-			prioridadAtaqueAnterior = false;
-		}else if(velocidadMia == velocidadRival){
-			int estaminaMia = this.estamina;
-			int estaminaRival = defensor.getEstamina();
-			if(estaminaMia > estaminaRival) {
-				prioridad = true;
-				prioridadAtaqueAnterior = true;
-			}else if(estaminaMia < estaminaRival) {
-				prioridad = false;
-				prioridadAtaqueAnterior = false;
-			}else if (estaminaMia == estaminaRival) {
-				if(prioridadAtaqueAnterior == false) {
-					prioridad = true;
-					prioridadAtaqueAnterior = true;
-				}else if(prioridadAtaqueAnterior == true) {
-					prioridad = false;
-					prioridadAtaqueAnterior = false;
-				}
-			}
-		}
-		return prioridad;
 	}
 	
 	public boolean isMuerto(Personaje defensor, boolean muerto) {
