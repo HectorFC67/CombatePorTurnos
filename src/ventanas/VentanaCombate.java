@@ -48,9 +48,13 @@ public class VentanaCombate extends JFrame{
     private JProgressBar pbSaludEnemigo;
     private JProgressBar pbEstaminaEnemigo;
     
-    private int saludMaximaBerserker = 150;
-    private int saludMaximaBalistica = 100;
-    private int saludMaximaTanque = 200;
+    private static int saludMaximaBerserker = 150;
+    private static int saludMaximaBalistica = 100;
+    private static int saludMaximaTanque = 200;
+    
+    private static int estaminaMaximaBerserker = 4;
+    private static int estaminaMaximaBalistica = 6;
+    private static int estaminaMaximaTanque = 8;
     
     private int saludMaximaAliado = 0;
     private int saludAliado = 0;
@@ -384,6 +388,9 @@ public class VentanaCombate extends JFrame{
 			estaminaEnemigo = listaPersonajesEnemigos[0].getEstamina();
 			saludMaximaAliado = saludMaximaBerserker;
 			saludMaximaEnemigo = saludMaximaBerserker;
+			estaminaMaximaAliado = estaminaMaximaBerserker;
+			estaminaMaximaEnemigo = estaminaMaximaBerserker;
+			
 			
 			if(segundoJugadorSeleccionado.equals(balisticaAliado.getTipo().name())) {
 				listaPersonajesAliados[1] = balisticaAliado;
@@ -411,6 +418,8 @@ public class VentanaCombate extends JFrame{
 			estaminaEnemigo = listaPersonajesEnemigos[0].getEstamina();
 			saludMaximaAliado = saludMaximaBalistica;
 			saludMaximaEnemigo = saludMaximaBalistica;
+			estaminaMaximaAliado = estaminaMaximaBalistica;
+			estaminaMaximaEnemigo = estaminaMaximaBalistica;
 			
 			if(segundoJugadorSeleccionado.equals(berserkerAliado.getTipo().name())) {
 				listaPersonajesAliados[1] = berserkerAliado;
@@ -438,6 +447,8 @@ public class VentanaCombate extends JFrame{
 			estaminaEnemigo = listaPersonajesEnemigos[0].getEstamina();
 			saludMaximaAliado = saludMaximaTanque;
 			saludMaximaEnemigo = saludMaximaTanque;
+			estaminaMaximaAliado = estaminaMaximaTanque;
+			estaminaMaximaEnemigo = estaminaMaximaTanque;
 			
 			if(segundoJugadorSeleccionado.equals(berserkerAliado.getTipo().name())) {
 				listaPersonajesAliados[1] = berserkerAliado;
@@ -465,6 +476,8 @@ public class VentanaCombate extends JFrame{
 			estaminaEnemigo = listaPersonajesEnemigos[0].getEstamina();
 			saludMaximaAliado = saludMaximaBerserker;
 			saludMaximaEnemigo = saludMaximaBalistica;
+			estaminaMaximaAliado = estaminaMaximaBerserker;
+			estaminaMaximaEnemigo = estaminaMaximaBalistica;
 			
 			if(segundoJugadorSeleccionado.equals(balisticaAliado.getTipo().name())) {
 				listaPersonajesAliados[1] = balisticaAliado;
@@ -492,6 +505,8 @@ public class VentanaCombate extends JFrame{
 			estaminaEnemigo = listaPersonajesEnemigos[0].getEstamina();
 			saludMaximaAliado = saludMaximaBerserker;
 			saludMaximaEnemigo = saludMaximaTanque;
+			estaminaMaximaAliado = estaminaMaximaBerserker;
+			estaminaMaximaEnemigo = estaminaMaximaTanque;
 			
 			if(segundoJugadorSeleccionado.equals(balisticaAliado.getTipo().name())) {
 				listaPersonajesAliados[1] = balisticaAliado;
@@ -519,6 +534,8 @@ public class VentanaCombate extends JFrame{
 			estaminaEnemigo = listaPersonajesEnemigos[0].getEstamina();
 			saludMaximaAliado = saludMaximaBalistica;
 			saludMaximaEnemigo = saludMaximaTanque;
+			estaminaMaximaAliado = estaminaMaximaBalistica;
+			estaminaMaximaEnemigo = estaminaMaximaTanque;
 			
 			if(segundoJugadorSeleccionado.equals(berserkerAliado.getTipo().name())) {
 				listaPersonajesAliados[1] = berserkerAliado;
@@ -546,6 +563,8 @@ public class VentanaCombate extends JFrame{
 			estaminaEnemigo = listaPersonajesEnemigos[0].getEstamina();
 			saludMaximaAliado = saludMaximaBalistica;
 			saludMaximaEnemigo = saludMaximaBerserker;
+			estaminaMaximaAliado = estaminaMaximaBalistica;
+			estaminaMaximaEnemigo = estaminaMaximaBerserker;
 			
 			if(segundoJugadorSeleccionado.equals(berserkerAliado.getTipo().name())) {
 				listaPersonajesAliados[1] = berserkerAliado;
@@ -573,6 +592,8 @@ public class VentanaCombate extends JFrame{
 			estaminaEnemigo = listaPersonajesEnemigos[0].getEstamina();
 			saludMaximaAliado = saludMaximaTanque;
 			saludMaximaEnemigo = saludMaximaBerserker;
+			estaminaMaximaAliado = estaminaMaximaTanque;
+			estaminaMaximaEnemigo = estaminaMaximaBerserker;
 			
 			if(segundoJugadorSeleccionado.equals(balisticaAliado.getTipo().name())) {
 				listaPersonajesAliados[1] = balisticaAliado;
@@ -600,6 +621,8 @@ public class VentanaCombate extends JFrame{
 			estaminaEnemigo = listaPersonajesEnemigos[0].getEstamina();
 			saludMaximaAliado = saludMaximaTanque;
 			saludMaximaEnemigo = saludMaximaBalistica;
+			estaminaMaximaAliado = estaminaMaximaTanque;
+			estaminaMaximaEnemigo = estaminaMaximaBalistica;
 			
 			if(segundoJugadorSeleccionado.equals(balisticaAliado.getTipo().name())) {
 				listaPersonajesAliados[1] = balisticaAliado;
