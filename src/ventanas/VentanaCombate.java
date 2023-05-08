@@ -77,10 +77,12 @@ public class VentanaCombate extends JFrame{
     
     private boolean muerto = false;
     
-    private boolean turnoAliado = false;
+    private boolean turnoAliado = true;
     private boolean turnoEnemigo = false;
     
 	private static int contadorPartidas = 0;
+	
+	private boolean primeraVez = true;
 	
 	public VentanaCombate(String[] equipoSeleccionadoList, String[] equipoNoSeleccionadoList) {
 		super("Juego de combate");
@@ -115,6 +117,15 @@ public class VentanaCombate extends JFrame{
 		fondo.setSize(800, 500);
 		add(fondo);
 
+		if(primeraVez == true) {
+			inicializacionTurnos(turnoAliado, turnoEnemigo);
+			primeraVez = false;
+		}else {
+			turnos(turnoAliado, turnoEnemigo);
+		}
+		listaPersonajesAliados[0].isMuerto(listaPersonajesAliados[0], muerto);
+		
+		
 		JPanel panelAliado = new JPanel();
 
 		JButton atacarAliado = new JButton("Atacar");
@@ -148,7 +159,7 @@ public class VentanaCombate extends JFrame{
 		cambiarPersonajeAliado.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
 					if(turnoAliado == true) {
-						ventanaCambiarPersonaje(equipoSeleccionadoList, equipoNoSeleccionadoList);
+						ventanaCambiarPersonajeAliado(equipoSeleccionadoList, equipoNoSeleccionadoList);
 					}
 					
 					else if(turnoAliado == false) {
@@ -170,113 +181,35 @@ public class VentanaCombate extends JFrame{
 
 		atacarEnemigo.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
-				listaPersonajesEnemigos[0].calcularDanyo(listaPersonajesAliados[0]);
-				pbSaludAliado.setValue(listaPersonajesAliados[0].getSalud());
-				pbEstaminaEnemigo.setValue(listaPersonajesEnemigos[0].getEstamina());
+				if(turnoEnemigo == true) {
+					listaPersonajesEnemigos[0].calcularDanyo(listaPersonajesAliados[0]);
+					pbSaludAliado.setValue(listaPersonajesAliados[0].getSalud());
+					pbEstaminaEnemigo.setValue(listaPersonajesEnemigos[0].getEstamina());					
+				}else if(turnoEnemigo == false) {
+					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 1.");
+				}
 			}
 		});
 		descansarEnemigo.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
-				listaPersonajesEnemigos[0].descansar();
-				pbEstaminaEnemigo.setValue(listaPersonajesEnemigos[0].getEstamina());
+				if(turnoEnemigo == true) {
+					listaPersonajesEnemigos[0].descansar();
+					pbEstaminaEnemigo.setValue(listaPersonajesEnemigos[0].getEstamina());
+				}else if(turnoEnemigo == false) {
+					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 1.");
+				}
 			}
 		});
 		cambiarPersonajeEnemigo.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
-				// Crear la nueva ventana
-				JDialog seleccionaPersonaje = new JDialog();
-				// Configurar la ventana
-				seleccionaPersonaje.setTitle("Selecciona Personaje");
-				seleccionaPersonaje.setSize(600, 600);
-
-				// Crear el panel de botones
-				JPanel panelBotones = new JPanel();
-				// Crear los botones
-				String rutaBerserker = "img/berserker(enemigo).png";
-				String rutaBalistica = "img/balistica(enemigo).png";
-				String rutaTanque = "img/tanque(enemigo).png";
-
-				ImageIcon imagenOriginal = new ImageIcon(rutaBerserker);
-				Image imagenEtiqueta = imagenOriginal.getImage();
-				Image nuevaImagen = imagenEtiqueta.getScaledInstance(nuevoAncho, nuevaAltura, Image.SCALE_SMOOTH);
-				ImageIcon BerserkerImagen = new ImageIcon(nuevaImagen);
-
-				ImageIcon imagenOriginal1 = new ImageIcon(rutaBalistica);
-				Image imagenEtiqueta1 = imagenOriginal1.getImage();
-				Image nuevaImagen1 = imagenEtiqueta1.getScaledInstance(nuevoAncho, nuevaAltura, Image.SCALE_SMOOTH);
-				ImageIcon BalisticaImagen = new ImageIcon(nuevaImagen1);
-
-				ImageIcon imagenOriginal2 = new ImageIcon(rutaTanque);
-				Image imagenEtiqueta2 = imagenOriginal2.getImage();
-				Image nuevaImagen2 = imagenEtiqueta2.getScaledInstance(nuevoAncho, nuevaAltura, Image.SCALE_SMOOTH);
-				ImageIcon TanqueImagen = new ImageIcon(nuevaImagen2);
-
-				if (equipoNoSeleccionadoList[1].toLowerCase().equals("berserker") && equipoNoSeleccionadoList[2].toLowerCase().equals("balistica")) {
-					boton1 = new JButton("Selecciona Personaje 1", BerserkerImagen);
-					boton2 = new JButton("Selecciona Personaje 2", BalisticaImagen);
-				} else if(equipoNoSeleccionadoList[1].toLowerCase().equals("berserker") && equipoNoSeleccionadoList[2].toLowerCase().equals("tanque")) {
-					boton1 = new JButton("Selecciona Personaje 1", BerserkerImagen);
-					boton2 = new JButton("Selecciona Personaje 2", TanqueImagen);
-				} else if(equipoNoSeleccionadoList[1].toLowerCase().equals("balistica") && equipoNoSeleccionadoList[2].toLowerCase().equals("berserker")) {
-					boton1 = new JButton("Selecciona Personaje 1", BalisticaImagen);
-					boton2 = new JButton("Selecciona Personaje 2", BerserkerImagen);
-				} else if(equipoNoSeleccionadoList[1].toLowerCase().equals("balistica") && equipoNoSeleccionadoList[2].toLowerCase().equals("tanque")) {
-					boton1 = new JButton("Selecciona Personaje 1", BalisticaImagen);
-					boton2 = new JButton("Selecciona Personaje 2", TanqueImagen);
-				} else if(equipoNoSeleccionadoList[1].toLowerCase().equals("tanque") && equipoNoSeleccionadoList[2].toLowerCase().equals("berserker")) {
-					boton1 = new JButton("Selecciona Personaje 1", TanqueImagen);
-					boton2 = new JButton("Selecciona Personaje 2", BerserkerImagen);
-				} else if(equipoNoSeleccionadoList[1].toLowerCase().equals("tanque") && equipoNoSeleccionadoList[2].toLowerCase().equals("tanque")) {
-					boton1 = new JButton("Selecciona Personaje 1", TanqueImagen);
-					boton2 = new JButton("Selecciona Personaje 2", BalisticaImagen);
+				if(turnoEnemigo == true) {
+					ventanaCambiarPersonajeEnemigo(equipoSeleccionadoList, equipoNoSeleccionadoList);
 				}
 				
-				boton1.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						String temp = equipoNoSeleccionadoList[1];
-						equipoNoSeleccionadoList[1] = equipoNoSeleccionadoList[0];
-						equipoNoSeleccionadoList[0] = temp;
-						imgFondo = emparejamiento(equipoSeleccionadoList, equipoNoSeleccionadoList);
-						getContentPane().remove(fondo); // Eliminar fondo
-						fondo = new JLabel(new ImageIcon(imgFondo));
-		                fondo.setSize(800, 500);
-		                add(fondo, BorderLayout.CENTER);
-		                validate(); // Validar cambios
-		                repaint(); // Repintar ventana
-						// Cerrar el JDialog actual
-						Window window = SwingUtilities.getWindowAncestor(boton1);
-						window.dispose();
-					}
-				});
+				else if(turnoEnemigo == false) {
+					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 1.");
+				}
 				
-				boton2.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						String temp = equipoNoSeleccionadoList[2];
-						equipoNoSeleccionadoList[2] = equipoNoSeleccionadoList[0];
-						equipoNoSeleccionadoList[0] = temp;
-						imgFondo = emparejamiento(equipoSeleccionadoList, equipoNoSeleccionadoList);
-						getContentPane().remove(fondo); // Eliminar fondo
-						fondo = new JLabel(new ImageIcon(imgFondo));
-		                fondo.setSize(800, 500);
-		                add(fondo, BorderLayout.CENTER);
-		                validate(); // Validar cambios
-		                repaint(); // Repintar ventana
-						// Cerrar el JDialog actual
-						Window window = SwingUtilities.getWindowAncestor(boton1);
-						window.dispose();
-					}
-				});
-				
-				// Agregar los botones al panel
-				panelBotones.add(boton1);
-				panelBotones.add(boton2);
-				// Agregar el panel de botones a la ventana
-				seleccionaPersonaje.add(panelBotones, BorderLayout.CENTER);
-
-				seleccionaPersonaje.setLocationRelativeTo(null); // Centrar la ventana en la pantalla
-				seleccionaPersonaje.setModal(true); // Bloquear la ventana principal mientras esta ventana está abierta
-				seleccionaPersonaje.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); // Cerrar la ventana al presionar la "X"
-				seleccionaPersonaje.setVisible(true);
 			}
 		});
 
@@ -290,8 +223,6 @@ public class VentanaCombate extends JFrame{
 		panelBotones.add(panelEnemigo, BorderLayout.EAST);
 
 		add(panelBotones, BorderLayout.SOUTH);
-		
-		listaPersonajesAliados[0].isMuerto(listaPersonajesAliados[0], muerto);
 		
 		pack();
 		setLocationRelativeTo(null);
@@ -578,35 +509,28 @@ public class VentanaCombate extends JFrame{
 		}
 		establecerSalud(saludMaximaAliado, saludAliado, saludMaximaEnemigo, saludEnemigo);
 		establecerEstamina(estaminaMaximaAliado, estaminaAliado, estaminaMaximaEnemigo, estaminaEnemigo);
-		turnos(turnoAliado, turnoEnemigo);
 		return imgFondo;
 	}
 	
-	public void turnos(boolean turnoAliado, boolean turnoEnemigo) {
+	public void inicializacionTurnos(boolean turnoAliado, boolean turnoEnemigo) {
 		if(listaPersonajesAliados[0].getVelocidad()>listaPersonajesEnemigos[0].getVelocidad() ) {
-			if(turnoAliado == true) {
-				turnoAliado = false;
-				turnoEnemigo = true;
-			}else if(turnoAliado == false) {
-				turnoAliado = true;
-				turnoEnemigo = false;
-			}
-		}else if(listaPersonajesAliados[0].getVelocidad()<listaPersonajesEnemigos[0].getVelocidad() ) {
-			if(turnoAliado == true) {
-				turnoAliado = false;
-				turnoEnemigo = true;
-			}else if(turnoAliado == false) {
-				turnoAliado = true;
-				turnoEnemigo = false;
-			}
-		}else if (listaPersonajesAliados[0].getVelocidad()==listaPersonajesEnemigos[0].getVelocidad() ) {
-			if(turnoAliado == true) {
-				turnoAliado = false;
-				turnoEnemigo = true;
-			}else if(turnoAliado == false) {
-				turnoAliado = true;
-				turnoEnemigo = false;
-			}
+			turnoAliado = true;
+			turnoEnemigo = false;
+		}else if(listaPersonajesAliados[0].getVelocidad()<listaPersonajesEnemigos[0].getVelocidad() ) { 
+			turnoAliado = false;
+			turnoEnemigo = true;
+		}else if (listaPersonajesAliados[0].getVelocidad() == listaPersonajesEnemigos[0].getVelocidad() ) {
+			turnos(turnoAliado, turnoEnemigo);
+		}
+	}
+	
+	public void turnos(boolean turnoAliado, boolean turnoEnemigo) {
+		if(turnoAliado == false) {
+			turnoAliado = true;
+			turnoEnemigo = false;
+		}else {
+			turnoAliado = false;
+			turnoEnemigo = true;
 		}
 	}
 	
@@ -626,7 +550,7 @@ public class VentanaCombate extends JFrame{
 		pbEstaminaEnemigo.setValue(estaminaEnemigo);
 	}
 	
-	public void ventanaCambiarPersonaje(String[] equipoSeleccionadoList, String[] equipoNoSeleccionadoList) {
+	public void ventanaCambiarPersonajeAliado(String[] equipoSeleccionadoList, String[] equipoNoSeleccionadoList) {
 		// Crear la nueva ventana
 		JDialog seleccionaPersonaje = new JDialog();
 		// Configurar la ventana
@@ -683,6 +607,7 @@ public class VentanaCombate extends JFrame{
 				equipoSeleccionadoList[0] = temp;
 				imgFondo = emparejamiento(equipoSeleccionadoList, equipoNoSeleccionadoList);
 				getContentPane().remove(fondo); // Eliminar fondo
+				//getContentPane().remove(panelBarras);
 				fondo = new JLabel(new ImageIcon(imgFondo));
                 fondo.setSize(800, 500);
                 add(fondo, BorderLayout.CENTER);
@@ -713,6 +638,103 @@ public class VentanaCombate extends JFrame{
 			}
 		});
 
+		// Agregar los botones al panel
+		panelBotones.add(boton1);
+		panelBotones.add(boton2);
+		// Agregar el panel de botones a la ventana
+		seleccionaPersonaje.add(panelBotones, BorderLayout.CENTER);
+
+		seleccionaPersonaje.setLocationRelativeTo(null); // Centrar la ventana en la pantalla
+		seleccionaPersonaje.setModal(true); // Bloquear la ventana principal mientras esta ventana está abierta
+		seleccionaPersonaje.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); // Cerrar la ventana al presionar la "X"
+		seleccionaPersonaje.setVisible(true);
+	}
+	
+	public void ventanaCambiarPersonajeEnemigo(String[] equipoSeleccionadoList, String[] equipoNoSeleccionadoList) {
+		// Crear la nueva ventana
+		JDialog seleccionaPersonaje = new JDialog();
+		// Configurar la ventana
+		seleccionaPersonaje.setTitle("Selecciona Personaje");
+		seleccionaPersonaje.setSize(600, 600);
+
+		// Crear el panel de botones
+		JPanel panelBotones = new JPanel();
+		// Crear los botones
+		String rutaBerserker = "img/berserker(enemigo).png";
+		String rutaBalistica = "img/balistica(enemigo).png";
+		String rutaTanque = "img/tanque(enemigo).png";
+
+		ImageIcon imagenOriginal = new ImageIcon(rutaBerserker);
+		Image imagenEtiqueta = imagenOriginal.getImage();
+		Image nuevaImagen = imagenEtiqueta.getScaledInstance(nuevoAncho, nuevaAltura, Image.SCALE_SMOOTH);
+		ImageIcon BerserkerImagen = new ImageIcon(nuevaImagen);
+
+		ImageIcon imagenOriginal1 = new ImageIcon(rutaBalistica);
+		Image imagenEtiqueta1 = imagenOriginal1.getImage();
+		Image nuevaImagen1 = imagenEtiqueta1.getScaledInstance(nuevoAncho, nuevaAltura, Image.SCALE_SMOOTH);
+		ImageIcon BalisticaImagen = new ImageIcon(nuevaImagen1);
+
+		ImageIcon imagenOriginal2 = new ImageIcon(rutaTanque);
+		Image imagenEtiqueta2 = imagenOriginal2.getImage();
+		Image nuevaImagen2 = imagenEtiqueta2.getScaledInstance(nuevoAncho, nuevaAltura, Image.SCALE_SMOOTH);
+		ImageIcon TanqueImagen = new ImageIcon(nuevaImagen2);
+
+		if (equipoNoSeleccionadoList[1].toLowerCase().equals("berserker") && equipoNoSeleccionadoList[2].toLowerCase().equals("balistica")) {
+			boton1 = new JButton("Selecciona Personaje 1", BerserkerImagen);
+			boton2 = new JButton("Selecciona Personaje 2", BalisticaImagen);
+		} else if(equipoNoSeleccionadoList[1].toLowerCase().equals("berserker") && equipoNoSeleccionadoList[2].toLowerCase().equals("tanque")) {
+			boton1 = new JButton("Selecciona Personaje 1", BerserkerImagen);
+			boton2 = new JButton("Selecciona Personaje 2", TanqueImagen);
+		} else if(equipoNoSeleccionadoList[1].toLowerCase().equals("balistica") && equipoNoSeleccionadoList[2].toLowerCase().equals("berserker")) {
+			boton1 = new JButton("Selecciona Personaje 1", BalisticaImagen);
+			boton2 = new JButton("Selecciona Personaje 2", BerserkerImagen);
+		} else if(equipoNoSeleccionadoList[1].toLowerCase().equals("balistica") && equipoNoSeleccionadoList[2].toLowerCase().equals("tanque")) {
+			boton1 = new JButton("Selecciona Personaje 1", BalisticaImagen);
+			boton2 = new JButton("Selecciona Personaje 2", TanqueImagen);
+		} else if(equipoNoSeleccionadoList[1].toLowerCase().equals("tanque") && equipoNoSeleccionadoList[2].toLowerCase().equals("berserker")) {
+			boton1 = new JButton("Selecciona Personaje 1", TanqueImagen);
+			boton2 = new JButton("Selecciona Personaje 2", BerserkerImagen);
+		} else if(equipoNoSeleccionadoList[1].toLowerCase().equals("tanque") && equipoNoSeleccionadoList[2].toLowerCase().equals("tanque")) {
+			boton1 = new JButton("Selecciona Personaje 1", TanqueImagen);
+			boton2 = new JButton("Selecciona Personaje 2", BalisticaImagen);
+		}
+		
+		boton1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String temp = equipoNoSeleccionadoList[1];
+				equipoNoSeleccionadoList[1] = equipoNoSeleccionadoList[0];
+				equipoNoSeleccionadoList[0] = temp;
+				imgFondo = emparejamiento(equipoSeleccionadoList, equipoNoSeleccionadoList);
+				getContentPane().remove(fondo); // Eliminar fondo
+				fondo = new JLabel(new ImageIcon(imgFondo));
+                fondo.setSize(800, 500);
+                add(fondo, BorderLayout.CENTER);
+                validate(); // Validar cambios
+                repaint(); // Repintar ventana
+				// Cerrar el JDialog actual
+				Window window = SwingUtilities.getWindowAncestor(boton1);
+				window.dispose();
+			}
+		});
+		
+		boton2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String temp = equipoNoSeleccionadoList[2];
+				equipoNoSeleccionadoList[2] = equipoNoSeleccionadoList[0];
+				equipoNoSeleccionadoList[0] = temp;
+				imgFondo = emparejamiento(equipoSeleccionadoList, equipoNoSeleccionadoList);
+				getContentPane().remove(fondo); // Eliminar fondo
+				fondo = new JLabel(new ImageIcon(imgFondo));
+                fondo.setSize(800, 500);
+                add(fondo, BorderLayout.CENTER);
+                validate(); // Validar cambios
+                repaint(); // Repintar ventana
+				// Cerrar el JDialog actual
+				Window window = SwingUtilities.getWindowAncestor(boton1);
+				window.dispose();
+			}
+		});
+		
 		// Agregar los botones al panel
 		panelBotones.add(boton1);
 		panelBotones.add(boton2);
