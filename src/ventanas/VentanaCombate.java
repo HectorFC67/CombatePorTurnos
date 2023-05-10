@@ -35,12 +35,12 @@ public class VentanaCombate extends JFrame{
 	private String imgFondo = "";
 
 	private Personaje berserkerAliado = new Personaje(Tipos.BERSERKER, 150, 20, 4, 5, false);
-	private Personaje balisticaAliado = new Personaje(Tipos.BALISTICA, 100, 30, 5, 7, false);
-	private Personaje tanqueAliado = new Personaje(Tipos.TANQUE, 200, 10, 6, 2, false);
+	private Personaje balisticaAliado = new Personaje(Tipos.BALISTICA, 100, 30, 6, 7, false);
+	private Personaje tanqueAliado = new Personaje(Tipos.TANQUE, 200, 10, 8, 2, false);
 
 	private Personaje berserkerEnemigo = new Personaje(Tipos.BERSERKER, 150, 20, 4, 5, false);
-	private Personaje balisticaEnemigo = new Personaje(Tipos.BALISTICA, 100, 30, 5, 7, false);
-	private Personaje tanqueEnemigo = new Personaje(Tipos.TANQUE, 200, 10, 6, 2, false);
+	private Personaje balisticaEnemigo = new Personaje(Tipos.BALISTICA, 100, 30, 6, 7, false);
+	private Personaje tanqueEnemigo = new Personaje(Tipos.TANQUE, 200, 10, 8, 2, false);
 
 	private JButton boton1 = new JButton();
 	private JButton boton2 = new JButton();
@@ -134,37 +134,33 @@ public class VentanaCombate extends JFrame{
 		
 		atacarAliado.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
-				if(turnoAliado == true) {
+				//if(turnoAliado == true) {
 					listaPersonajesAliados[0].calcularDanyo(listaPersonajesEnemigos[0]);
 					pbSaludEnemigo.setValue(listaPersonajesEnemigos[0].getSalud());
 					pbEstaminaAliado.setValue(listaPersonajesAliados[0].getEstamina());
-				}else if(turnoAliado == false) {
-					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 2.");
-				}
+				//}else if(turnoAliado == false) {
+				//	JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 2.");
+				//}
 				
 			}
 		});
 		descansarAliado.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
-				if(turnoAliado == true) {
+				//if(turnoAliado == true) {
 					listaPersonajesAliados[0].descansar();
 					pbEstaminaAliado.setValue(listaPersonajesAliados[0].getEstamina());
-				}
-				
-				else if(turnoAliado == false) {
-					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 2.");
-				}
+				//} else if(turnoAliado == false) {
+				//	JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 2.");
+				//}
 			}
 		});
 		cambiarPersonajeAliado.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
-					if(turnoAliado == true) {
+					//if(turnoAliado == true) {
 						ventanaCambiarPersonajeAliado(equipoSeleccionadoList, equipoNoSeleccionadoList);
-					}
-					
-					else if(turnoAliado == false) {
-						JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 2.");
-					}
+					//} else if(turnoAliado == false) {
+					//	JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 2.");
+					//}
 				
 			}
 		});
@@ -181,34 +177,32 @@ public class VentanaCombate extends JFrame{
 
 		atacarEnemigo.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
-				if(turnoEnemigo == true) {
+				//if(turnoEnemigo == true) {
 					listaPersonajesEnemigos[0].calcularDanyo(listaPersonajesAliados[0]);
 					pbSaludAliado.setValue(listaPersonajesAliados[0].getSalud());
 					pbEstaminaEnemigo.setValue(listaPersonajesEnemigos[0].getEstamina());					
-				}else if(turnoEnemigo == false) {
-					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 1.");
-				}
+				//}else if(turnoEnemigo == false) {
+				//	JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 1.");
+				//}
 			}
 		});
 		descansarEnemigo.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
-				if(turnoEnemigo == true) {
+				//if(turnoEnemigo == true) {
 					listaPersonajesEnemigos[0].descansar();
 					pbEstaminaEnemigo.setValue(listaPersonajesEnemigos[0].getEstamina());
-				}else if(turnoEnemigo == false) {
-					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 1.");
-				}
+				//}else if(turnoEnemigo == false) {
+				//	JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 1.");
+				//}
 			}
 		});
 		cambiarPersonajeEnemigo.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
-				if(turnoEnemigo == true) {
+				//if(turnoEnemigo == true) {
 					ventanaCambiarPersonajeEnemigo(equipoSeleccionadoList, equipoNoSeleccionadoList);
-				}
-				
-				else if(turnoEnemigo == false) {
-					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 1.");
-				}
+				//} else if(turnoEnemigo == false) {
+				//	JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 1.");
+				//}
 				
 			}
 		});
@@ -545,7 +539,7 @@ public class VentanaCombate extends JFrame{
 	public void establecerEstamina(int estaminaMaximaAliado, int estaminaAliado, int estaminaMaximaEnemigo, int estaminaEnemigo) {
 		pbEstaminaAliado.setMaximum(estaminaMaximaAliado);
 		pbEstaminaAliado.setValue(estaminaAliado);
-		
+		System.out.println(estaminaMaximaAliado +" "+ estaminaEnemigo);
 		pbEstaminaEnemigo.setMaximum(estaminaMaximaEnemigo);
 		pbEstaminaEnemigo.setValue(estaminaEnemigo);
 	}
@@ -607,11 +601,29 @@ public class VentanaCombate extends JFrame{
 				equipoSeleccionadoList[0] = temp;
 				imgFondo = emparejamiento(equipoSeleccionadoList, equipoNoSeleccionadoList);
 				getContentPane().remove(fondo); // Eliminar fondo
-				//getContentPane().remove(panelBarras);
 				fondo = new JLabel(new ImageIcon(imgFondo));
                 fondo.setSize(800, 500);
                 add(fondo, BorderLayout.CENTER);
-                validate(); // Validar cambios
+                
+                //getContentPane().remove();-------------------------------------------------------------------------------------------------------------------------------
+                
+                establecerSalud(saludMaximaAliado, saludAliado, saludMaximaEnemigo, saludEnemigo);
+                establecerEstamina(estaminaMaximaAliado, estaminaAliado, estaminaMaximaEnemigo, estaminaEnemigo);
+                
+                /*JPanel panelBarrasAliado = new JPanel();
+        		pbSaludAliado = new JProgressBar();
+        		pbSaludAliado.setForeground(new Color(255, 0, 0));
+        		pbEstaminaAliado = new JProgressBar();
+        		pbEstaminaAliado.setForeground(new Color(75, 0, 130));
+        		panelBarrasAliado.add(pbSaludAliado);
+        		panelBarrasAliado.add(pbEstaminaAliado);
+        		
+        		panelBarras.add(panelBarrasAliado, BorderLayout.WEST);
+        		
+        		establecerSalud(saludMaximaAliado, saludAliado, saludMaximaEnemigo, saludEnemigo);
+        		establecerEstamina(estaminaMaximaAliado, estaminaAliado, estaminaMaximaEnemigo, estaminaEnemigo);
+                */
+        		validate(); // Validar cambios
                 repaint(); // Repintar ventana
 				// Cerrar el JDialog actual
 				Window window = SwingUtilities.getWindowAncestor(boton1);
@@ -743,10 +755,10 @@ public class VentanaCombate extends JFrame{
 
 		seleccionaPersonaje.setLocationRelativeTo(null); // Centrar la ventana en la pantalla
 		seleccionaPersonaje.setModal(true); // Bloquear la ventana principal mientras esta ventana está abierta
-		seleccionaPersonaje.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); // Cerrar la ventana al presionar la "X"
+		seleccionaPersonaje.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		seleccionaPersonaje.setVisible(true);
 	}
-	
+//-------------------------------------------------------------------------------------------------------------------------------------------	
 	private void contadorPartidasConfigProperties() {
 		File configFile = new File("config.properties");
         Properties props = new Properties();
