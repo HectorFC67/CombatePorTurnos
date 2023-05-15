@@ -99,7 +99,7 @@ public class Personaje {
 		return ataque;
 	}
 	
-	public boolean isMuerto(boolean muerto) {
+	public boolean isMuerto() {
 		if(this.salud<= 0) {
 			muerto = true;
 		}else {
