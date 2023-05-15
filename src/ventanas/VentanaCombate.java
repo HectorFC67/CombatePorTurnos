@@ -99,7 +99,7 @@ public class VentanaCombate extends JFrame{
 		
 		JPanel panelBarrasEnemigo = new JPanel();
 		pbSaludEnemigo = new JProgressBar();
-		pbSaludEnemigo.setForeground(new Color(255, 0, 0));
+		pbSaludEnemigo.setForeground(new Color(0, 255, 0));
 		pbEstaminaEnemigo = new JProgressBar();
 		pbEstaminaEnemigo.setForeground(new Color(75, 0, 130));
 		panelBarrasEnemigo.add(pbSaludEnemigo);
@@ -139,7 +139,9 @@ public class VentanaCombate extends JFrame{
 						pbEstaminaAliado.setValue(listaPersonajesAliados[0].getEstamina());
 						turnoAliado = false;
 						turnoEnemigo = true;
-						//listaPersonajesEnemigos[0].isMuerto(listaPersonajesEnemigos[0], muerto);
+						if(listaPersonajesEnemigos[0].isMuerto(muerto) == true) {
+							ventanaCambiarPersonajeEnemigo(equipoSeleccionadoList, equipoNoSeleccionadoList);
+						}
 					}	
 				}else if(turnoAliado == false) {
 					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 2.");
@@ -197,6 +199,9 @@ public class VentanaCombate extends JFrame{
 						pbEstaminaEnemigo.setValue(listaPersonajesEnemigos[0].getEstamina());
 						turnoEnemigo = false;
 						turnoAliado = true;
+						if(listaPersonajesAliados[0].isMuerto(muerto) == true) {
+							ventanaCambiarPersonajeAliado(equipoSeleccionadoList, equipoNoSeleccionadoList);
+						}
 					}
 									
 				}else if(turnoEnemigo == false) {

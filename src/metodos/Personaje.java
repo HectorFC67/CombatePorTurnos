@@ -7,8 +7,6 @@ public class Personaje {
 	private int danyoBase;
 	private int estamina;
 	private int velocidad;
-	private boolean prioridad = false;
-	private boolean prioridadAtaqueAnterior = false;
 	private boolean ataque = true;
 	private boolean muerto = false;
 
@@ -101,9 +99,11 @@ public class Personaje {
 		return ataque;
 	}
 	
-	public boolean isMuerto(Personaje defensor, boolean muerto) {
-		if(defensor.getSalud()<= 0) {
+	public boolean isMuerto(boolean muerto) {
+		if(this.salud<= 0) {
 			muerto = true;
+		}else {
+			muerto = false;
 		}
 		return muerto;
 	}
