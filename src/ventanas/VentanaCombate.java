@@ -120,11 +120,7 @@ public class VentanaCombate extends JFrame{
 		if(primeraVez == true) {
 			inicializacionTurnos(turnoAliado, turnoEnemigo);
 			primeraVez = false;
-		}else {
-			turnos(turnoAliado, turnoEnemigo);
 		}
-		listaPersonajesAliados[0].isMuerto(listaPersonajesAliados[0], muerto);
-		
 		
 		JPanel panelAliado = new JPanel();
 
@@ -134,33 +130,48 @@ public class VentanaCombate extends JFrame{
 		
 		atacarAliado.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
-				//if(turnoAliado == true) {
-					listaPersonajesAliados[0].calcularDanyo(listaPersonajesEnemigos[0]);
-					pbSaludEnemigo.setValue(listaPersonajesEnemigos[0].getSalud());
-					pbEstaminaAliado.setValue(listaPersonajesAliados[0].getEstamina());
-				//}else if(turnoAliado == false) {
-				//	JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 2.");
-				//}
+				if(turnoAliado == true) {
+					if(listaPersonajesAliados[0].getEstamina() <= 0) {
+						JOptionPane.showMessageDialog(null, "No tienes estamina, te sugiero descansar o cambiar de guerrero.");
+					}else {
+						listaPersonajesAliados[0].calcularDanyo(listaPersonajesEnemigos[0]);
+						pbSaludEnemigo.setValue(listaPersonajesEnemigos[0].getSalud());
+						pbEstaminaAliado.setValue(listaPersonajesAliados[0].getEstamina());
+						turnoAliado = false;
+						turnoEnemigo = true;
+						//listaPersonajesEnemigos[0].isMuerto(listaPersonajesEnemigos[0], muerto);
+					}	
+				}else if(turnoAliado == false) {
+					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 2.");
+				}
 				
 			}
 		});
 		descansarAliado.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
-				//if(turnoAliado == true) {
-					listaPersonajesAliados[0].descansar();
-					pbEstaminaAliado.setValue(listaPersonajesAliados[0].getEstamina());
-				//} else if(turnoAliado == false) {
-				//	JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 2.");
-				//}
+				if(turnoAliado == true) {
+					if(listaPersonajesAliados[0].getEstamina() == estaminaMaximaAliado) {
+						JOptionPane.showMessageDialog(null, "Tienes la estamina al maximo, te sugiero atacar o cambiar de guerrero");
+					}else {
+						listaPersonajesAliados[0].descansar();
+						pbEstaminaAliado.setValue(listaPersonajesAliados[0].getEstamina());
+						turnoAliado = false;
+						turnoEnemigo = true;
+					}
+				} else if(turnoAliado == false) {
+					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 2.");
+				}
 			}
 		});
 		cambiarPersonajeAliado.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
-					//if(turnoAliado == true) {
+					if(turnoAliado == true) {
 						ventanaCambiarPersonajeAliado(equipoSeleccionadoList, equipoNoSeleccionadoList);
-					//} else if(turnoAliado == false) {
-					//	JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 2.");
-					//}
+						turnoAliado = false;
+						turnoEnemigo = true;
+					} else if(turnoAliado == false) {
+						JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 2.");
+					}
 				
 			}
 		});
@@ -177,32 +188,48 @@ public class VentanaCombate extends JFrame{
 
 		atacarEnemigo.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
-				//if(turnoEnemigo == true) {
-					listaPersonajesEnemigos[0].calcularDanyo(listaPersonajesAliados[0]);
-					pbSaludAliado.setValue(listaPersonajesAliados[0].getSalud());
-					pbEstaminaEnemigo.setValue(listaPersonajesEnemigos[0].getEstamina());					
-				//}else if(turnoEnemigo == false) {
-				//	JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 1.");
-				//}
+				if(turnoEnemigo == true) {
+					if(listaPersonajesEnemigos[0].getEstamina() <= 0) {
+						JOptionPane.showMessageDialog(null, "No tienes estamina, te sugiero descansar o cambiar de guerrero.");
+					}else {
+						listaPersonajesEnemigos[0].calcularDanyo(listaPersonajesAliados[0]);
+						pbSaludAliado.setValue(listaPersonajesAliados[0].getSalud());
+						pbEstaminaEnemigo.setValue(listaPersonajesEnemigos[0].getEstamina());
+						turnoEnemigo = false;
+						turnoAliado = true;
+					}
+									
+				}else if(turnoEnemigo == false) {
+					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 1.");
+				}
 			}
 		});
 		descansarEnemigo.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
-				//if(turnoEnemigo == true) {
-					listaPersonajesEnemigos[0].descansar();
-					pbEstaminaEnemigo.setValue(listaPersonajesEnemigos[0].getEstamina());
-				//}else if(turnoEnemigo == false) {
-				//	JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 1.");
-				//}
+				if(turnoEnemigo == true) {
+					if(listaPersonajesAliados[0].getEstamina() == estaminaMaximaAliado) {
+						JOptionPane.showMessageDialog(null, "Tienes la estamina al maximo, te sugiero atacar o cambiar de guerrero");
+					}else {
+						listaPersonajesEnemigos[0].descansar();
+						pbEstaminaEnemigo.setValue(listaPersonajesEnemigos[0].getEstamina());
+						turnoEnemigo = false;
+						turnoAliado = true;
+					}
+					
+				}else if(turnoEnemigo == false) {
+					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 1.");
+				}
 			}
 		});
 		cambiarPersonajeEnemigo.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
-				//if(turnoEnemigo == true) {
+				if(turnoEnemigo == true) {
 					ventanaCambiarPersonajeEnemigo(equipoSeleccionadoList, equipoNoSeleccionadoList);
-				//} else if(turnoEnemigo == false) {
-				//	JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 1.");
-				//}
+					turnoEnemigo = false;
+					turnoAliado = true;
+				} else if(turnoEnemigo == false) {
+					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 1.");
+				}
 				
 			}
 		});
@@ -250,7 +277,6 @@ public class VentanaCombate extends JFrame{
 			saludMaximaEnemigo = saludMaximaBerserker;
 			estaminaMaximaAliado = estaminaMaximaBerserker;
 			estaminaMaximaEnemigo = estaminaMaximaBerserker;
-			
 			
 			if(segundoJugadorSeleccionado.equals(balisticaAliado.getTipo().name())) {
 				listaPersonajesAliados[1] = balisticaAliado;
@@ -605,24 +631,9 @@ public class VentanaCombate extends JFrame{
                 fondo.setSize(800, 500);
                 add(fondo, BorderLayout.CENTER);
                 
-                //getContentPane().remove();-------------------------------------------------------------------------------------------------------------------------------
-                
                 establecerSalud(saludMaximaAliado, saludAliado, saludMaximaEnemigo, saludEnemigo);
                 establecerEstamina(estaminaMaximaAliado, estaminaAliado, estaminaMaximaEnemigo, estaminaEnemigo);
                 
-                /*JPanel panelBarrasAliado = new JPanel();
-        		pbSaludAliado = new JProgressBar();
-        		pbSaludAliado.setForeground(new Color(255, 0, 0));
-        		pbEstaminaAliado = new JProgressBar();
-        		pbEstaminaAliado.setForeground(new Color(75, 0, 130));
-        		panelBarrasAliado.add(pbSaludAliado);
-        		panelBarrasAliado.add(pbEstaminaAliado);
-        		
-        		panelBarras.add(panelBarrasAliado, BorderLayout.WEST);
-        		
-        		establecerSalud(saludMaximaAliado, saludAliado, saludMaximaEnemigo, saludEnemigo);
-        		establecerEstamina(estaminaMaximaAliado, estaminaAliado, estaminaMaximaEnemigo, estaminaEnemigo);
-                */
         		validate(); // Validar cambios
                 repaint(); // Repintar ventana
 				// Cerrar el JDialog actual
@@ -642,6 +653,10 @@ public class VentanaCombate extends JFrame{
 				fondo = new JLabel(new ImageIcon(imgFondo));
                 fondo.setSize(800, 500);
                 add(fondo, BorderLayout.CENTER);
+                
+                establecerSalud(saludMaximaAliado, saludAliado, saludMaximaEnemigo, saludEnemigo);
+                establecerEstamina(estaminaMaximaAliado, estaminaAliado, estaminaMaximaEnemigo, estaminaEnemigo);
+                
                 validate(); // Validar cambios
                 repaint(); // Repintar ventana
 				// Cerrar el JDialog actual
@@ -721,6 +736,10 @@ public class VentanaCombate extends JFrame{
 				fondo = new JLabel(new ImageIcon(imgFondo));
                 fondo.setSize(800, 500);
                 add(fondo, BorderLayout.CENTER);
+                
+                establecerSalud(saludMaximaAliado, saludAliado, saludMaximaEnemigo, saludEnemigo);
+                establecerEstamina(estaminaMaximaAliado, estaminaAliado, estaminaMaximaEnemigo, estaminaEnemigo);
+                
                 validate(); // Validar cambios
                 repaint(); // Repintar ventana
 				// Cerrar el JDialog actual
@@ -739,6 +758,10 @@ public class VentanaCombate extends JFrame{
 				fondo = new JLabel(new ImageIcon(imgFondo));
                 fondo.setSize(800, 500);
                 add(fondo, BorderLayout.CENTER);
+                
+                establecerSalud(saludMaximaAliado, saludAliado, saludMaximaEnemigo, saludEnemigo);
+                establecerEstamina(estaminaMaximaAliado, estaminaAliado, estaminaMaximaEnemigo, estaminaEnemigo);
+                
                 validate(); // Validar cambios
                 repaint(); // Repintar ventana
 				// Cerrar el JDialog actual
