@@ -1,11 +1,11 @@
 package metodos;
 
-public class Personaje {
+public abstract class Personaje {
 
 	private Tipos tipo;
-	private int salud;
-	private int danyoBase;
-	private int estamina;
+	public int salud;
+	protected int danyoBase;
+	protected int estamina;
 	private int velocidad;
 	private boolean ataque = true;
 	private boolean muerto = false;
@@ -108,4 +108,5 @@ public class Personaje {
 		return muerto;
 	}
 	
+	public abstract void habilidad();
 }
