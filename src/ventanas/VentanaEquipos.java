@@ -15,7 +15,7 @@ public class VentanaEquipos extends JFrame {
 
 	DefaultListModel<String> modelo = new DefaultListModel<>();
 
-	public VentanaEquipos() {
+	public VentanaEquipos(String usuario1, String usuario2) {
 		super("Seleccionar equipos");
 		setSize(450, 200);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,7 +46,7 @@ public class VentanaEquipos extends JFrame {
 		botonGenerar.addActionListener(e -> generarEquipos());
 
 		JButton botonSeleccionar = new JButton("Seleccionar mi equipo");
-		botonSeleccionar.addActionListener(e -> seleccionarEquipo());
+		botonSeleccionar.addActionListener(e -> seleccionarEquipo(usuario1, usuario2));
 
 		JPanel panelBoton = new JPanel();
 		panelBoton.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -92,7 +92,7 @@ public class VentanaEquipos extends JFrame {
 
 	}
 
-	private void seleccionarEquipo() {
+	private void seleccionarEquipo(String usuario1, String usuario2) {
 		if (equiposList.getSelectedValue() == null) {
 			JOptionPane.showMessageDialog(this, "Debes seleccionar un equipo de la lista.");
 		} else {
@@ -104,7 +104,7 @@ public class VentanaEquipos extends JFrame {
 				String equipoNoSeleccionado = modelo.getElementAt(0);
 				dispose();
 				JOptionPane.showMessageDialog(this, "Has seleccionado el equipo: " + equipoSeleccionado);
-				VentanaCombatePrevio combatePrevio = new VentanaCombatePrevio(equipoSeleccionado, equipoNoSeleccionado);
+				VentanaCombatePrevio combatePrevio = new VentanaCombatePrevio(equipoSeleccionado, equipoNoSeleccionado, usuario1, usuario2);
 			}
 		}
 	}

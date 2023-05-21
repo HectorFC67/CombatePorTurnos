@@ -91,7 +91,7 @@ public class VentanaCombate extends JFrame{
 	int coolDownHabilidadAliado = 0;
 	int coolDownHabilidadEnemigo = 0;
 	
-	public VentanaCombate(String[] equipoSeleccionadoList, String[] equipoNoSeleccionadoList) {
+	public VentanaCombate(String[] equipoSeleccionadoList, String[] equipoNoSeleccionadoList, String usuario1, String usuario2) {
 		super("Juego de combate");
 		setSize(800, 500);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -152,7 +152,7 @@ public class VentanaCombate extends JFrame{
 							contadorMuertesEnemigo++;
 							if(contadorMuertesEnemigo == 3) {
 								dispose();
-								VentanaVictoria ventanaVictoria = new VentanaVictoria(1);
+								VentanaVictoria ventanaVictoria = new VentanaVictoria(1, usuario1, usuario2);
 				                ventanaVictoria.setVisible(true);
 							}else {
 								ventanaCambiarPersonajeEnemigo(equipoSeleccionadoList, equipoNoSeleccionadoList);
@@ -241,7 +241,7 @@ public class VentanaCombate extends JFrame{
 							contadorMuertesAliado++;
 							if(contadorMuertesAliado == 3) {
 				                dispose();
-								VentanaVictoria ventanaVictoria = new VentanaVictoria(2);
+								VentanaVictoria ventanaVictoria = new VentanaVictoria(2, usuario1, usuario2);
 				                ventanaVictoria.setVisible(true);
 							}else {
 								ventanaCambiarPersonajeAliado(equipoSeleccionadoList, equipoNoSeleccionadoList);

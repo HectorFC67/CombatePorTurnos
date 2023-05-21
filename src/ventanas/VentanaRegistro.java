@@ -4,10 +4,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 
+import javax.swing.JPasswordField;
+
 public class VentanaRegistro extends Frame implements ActionListener {
-    Label lb1, lb2, lb3;
-    TextField tf1, tf2;
-    Button btn1;
+    private Label lb1, lb2, lb3;
+    private TextField tf1;
+    private JPasswordField  tf2;
+    private Button btn1;
 
     public VentanaRegistro() {
         super("Registro");
@@ -19,7 +22,7 @@ public class VentanaRegistro extends Frame implements ActionListener {
         lb3 = new Label("");
 
         tf1 = new TextField();
-        tf2 = new TextField();
+        tf2 = new JPasswordField();
 
         btn1 = new Button("Registrar");
         btn1.addActionListener(this);
@@ -62,13 +65,10 @@ public class VentanaRegistro extends Frame implements ActionListener {
         c.anchor = GridBagConstraints.CENTER;
         panelCentral.add(lb3, c);
 
-        // Agregamos el panelCentral al centro del BorderLayout
         add(panelCentral, BorderLayout.CENTER);
 
-        // Agregamos el panel de botones al sur del BorderLayout
         add(panel, BorderLayout.SOUTH);
 
-        // Agregar manejador de eventos para cerrar la ventana de registro
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 dispose();
@@ -87,19 +87,15 @@ public class VentanaRegistro extends Frame implements ActionListener {
             try {
                 File archivo = new File("historial.txt");
                 BufferedWriter escritor = new BufferedWriter(new FileWriter(archivo, true));
-                escritor.write(usuario + "," + contrasena + "\n");
+                escritor.write(usuario + "\t" + contrasena + "\t0\t0\t0\n");
                 escritor.close();
 
-                new VentanaPrincipal();
+                new VentanaInicioSesion();
                 dispose();
 
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }
-    }
-
-    public static void main(String[] args) {
-        new VentanaRegistro();
     }
 }

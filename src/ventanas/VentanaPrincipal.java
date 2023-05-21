@@ -10,7 +10,7 @@ import javax.swing.*;
 public class VentanaPrincipal extends JFrame {
 
 	//mapas, hacer bien ventana registro ¡SOLO REGISTRO! (solo con usuario y verificar que este en el fichero).
-    public VentanaPrincipal() {
+    public VentanaPrincipal(String usuario1, String usuario2) {
     	// TODO Auto-generated constructor stub
         super("ANCIENT COMBAT - Inicio");
         setSize(940, 725);
@@ -32,7 +32,7 @@ public class VentanaPrincipal extends JFrame {
         JButton bCerrar = new JButton("Cerrar Juego");
 
         bIniciar.addActionListener(e -> {
-            VentanaEquipos ventanaEquipos = new VentanaEquipos();
+            VentanaEquipos ventanaEquipos = new VentanaEquipos(usuario1, usuario2);
             ventanaEquipos.setVisible(true);
             this.dispose();
         });
@@ -47,10 +47,5 @@ public class VentanaPrincipal extends JFrame {
 
         setLocationRelativeTo(null);
         setVisible(true);
-    }
-
-    
-    public static void main(String[] args) {
-        VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
     }
 }

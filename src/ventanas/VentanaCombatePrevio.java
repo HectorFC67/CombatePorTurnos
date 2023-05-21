@@ -28,7 +28,7 @@ public class VentanaCombatePrevio extends JFrame {
 	int nuevoAncho = 270;
 	String rutaImagen = "";
 
-	public VentanaCombatePrevio(String equipoSeleccionado, String equipoNoSeleccionado) {
+	public VentanaCombatePrevio(String equipoSeleccionado, String equipoNoSeleccionado, String usuario1, String usuario2) {
 		super("Preparación del combate");
 		setSize(1000, 625);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -174,7 +174,7 @@ public class VentanaCombatePrevio extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// Ocultar esta ventana y abrir VentanaCombate
 				setVisible(false);
-				VentanaCombate ventanaCombate = new VentanaCombate(equipoSeleccionadoList, equipoNoSeleccionadoList);
+				VentanaCombate ventanaCombate = new VentanaCombate(equipoSeleccionadoList, equipoNoSeleccionadoList, usuario1, usuario2);
 				ventanaCombate.setVisible(true);
 			}
 		});

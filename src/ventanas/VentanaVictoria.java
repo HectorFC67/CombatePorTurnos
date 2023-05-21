@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class VentanaVictoria extends JFrame {
 
-    public VentanaVictoria(int equipoGanador) {
+    public VentanaVictoria(int equipoGanador, String usuario1, String usuario2) {
         setSize(600, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,7 +34,7 @@ public class VentanaVictoria extends JFrame {
         JButton volverBtn = new JButton("Volver al inicio");
         volverBtn.addActionListener(e -> {
             dispose();
-            VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
+            VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(usuario1, usuario2);
             ventanaPrincipal.setVisible(true);
         });
         botonesPanel.add(volverBtn);
