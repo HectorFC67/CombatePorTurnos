@@ -1,1 +1,2 @@
 jugador1	astra	0	0	0
+jugador2	hola	0	0	0

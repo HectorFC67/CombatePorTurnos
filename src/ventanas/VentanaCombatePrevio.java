@@ -189,4 +189,3 @@ public class VentanaCombatePrevio extends JFrame {
 		setVisible(true);
 	}
 }
-

@@ -80,7 +80,9 @@ public class VentanaRegistro extends Frame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         String usuario = tf1.getText();
-        String contrasena = tf2.getText();
+        char[] contrasenaCharArray = tf2.getPassword();
+        String contrasena = new String(contrasenaCharArray);
+
         if (usuario.isEmpty() || contrasena.isEmpty()) {
             lb3.setText("Rellene usuario y contraseña.");
         } else {

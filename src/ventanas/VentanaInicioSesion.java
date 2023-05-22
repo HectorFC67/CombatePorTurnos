@@ -42,7 +42,6 @@ public class VentanaInicioSesion extends JFrame {
                 String contrasena = new String(contrasenaField.getPassword());
                 if (verificarCredenciales(usuario, contrasena)) {
                     JOptionPane.showMessageDialog(VentanaInicioSesion.this, "Inicio de sesión exitoso.");
-                    contador++;
                     if(contador == 2) {
                     	VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(usuario1, usuario2);
                     	ventanaPrincipal.setVisible(true);
@@ -78,8 +77,17 @@ public class VentanaInicioSesion extends JFrame {
                 if (partes.length >= 2 && partes[0].equals(usuario) && partes[1].equals(contrasena)) {
                     if(contador == 0) {
                     	usuario1 = partes[0];
+                    	contador++;
                     }else if(contador == 1) {
-                    	usuario2 = partes[0];
+                    	if(partes[0].equals(usuario1)) {
+                    			JOptionPane.showMessageDialog(null, "Error: El usuario 1 "
+                    					+ "y el usuario 2 no pueden ser el mismo.", 
+                    					"Error de usuario", JOptionPane.ERROR_MESSAGE);
+                    			return false;
+                    	}else {
+                    		usuario2 = partes[0];
+                    		contador++;
+                    	}
                     }
                 	return true;
                 }
