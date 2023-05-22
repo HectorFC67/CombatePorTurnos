@@ -140,14 +140,16 @@ public class VentanaCombate extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if(turnoAliado == true) {
 					if(listaPersonajesAliados[0].getEstamina() <= 0) {
-						JOptionPane.showMessageDialog(null, "No tienes estamina, te sugiero descansar o cambiar de guerrero.");
+						JOptionPane.showMessageDialog(null, usuario1 + ", no tienes estamina, te sugiero descansar o cambiar de guerrero.");
 					}else {
 						listaPersonajesAliados[0].calcularDanyo(listaPersonajesEnemigos[0]);
 						pbSaludEnemigo.setValue(listaPersonajesEnemigos[0].getSalud());
 						pbEstaminaAliado.setValue(listaPersonajesAliados[0].getEstamina());
 						turnoAliado = false;
 						turnoEnemigo = true;
-						reducirCoolDownHabilidad(coolDownHabilidadAliado);
+						if(coolDownHabilidadAliado>0) {
+							coolDownHabilidadAliado--;
+						}
 						if(listaPersonajesEnemigos[0].isMuerto() == true) {
 							contadorMuertesEnemigo++;
 							if(contadorMuertesEnemigo == 3) {
@@ -160,7 +162,7 @@ public class VentanaCombate extends JFrame{
 						}
 					}	
 				}else if(turnoAliado == false) {
-					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 2.");
+					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno de " + usuario2);
 				}
 				
 			}
@@ -169,16 +171,18 @@ public class VentanaCombate extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if(turnoAliado == true) {
 					if(listaPersonajesAliados[0].getEstamina() == estaminaMaximaAliado) {
-						JOptionPane.showMessageDialog(null, "Tienes la estamina al maximo, te sugiero atacar o cambiar de guerrero");
+						JOptionPane.showMessageDialog(null, usuario1 + ", tienes la estamina al maximo, te sugiero atacar o cambiar de guerrero");
 					}else {
 						listaPersonajesAliados[0].descansar();
 						pbEstaminaAliado.setValue(listaPersonajesAliados[0].getEstamina());
 						turnoAliado = false;
 						turnoEnemigo = true;
-						reducirCoolDownHabilidad(coolDownHabilidadAliado);
+						if(coolDownHabilidadAliado>0) {
+							coolDownHabilidadAliado--;
+						}
 					}
 				} else if(turnoAliado == false) {
-					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 2.");
+					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno de " + usuario2);
 				}
 			}
 		});
@@ -190,7 +194,7 @@ public class VentanaCombate extends JFrame{
 						turnoEnemigo = true;
 						coolDownHabilidadAliado = 0;
 					} else if(turnoAliado == false) {
-						JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 2.");
+						JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno de " + usuario2);
 					}
 			}
 		});
@@ -199,16 +203,30 @@ public class VentanaCombate extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if(turnoAliado == true) {
 					if(coolDownHabilidadAliado <= 0) {
-						
+						listaPersonajesAliados[0].habilidad(listaPersonajesEnemigos[0]);
+						pbSaludAliado.setValue(listaPersonajesAliados[0].getSalud());
+						pbSaludEnemigo.setValue(listaPersonajesEnemigos[0].getSalud());
+						pbEstaminaEnemigo.setValue(listaPersonajesEnemigos[0].getEstamina());
+						pbEstaminaAliado.setValue(listaPersonajesAliados[0].getEstamina());
 						turnoAliado = false;
 						turnoEnemigo = true;
 						coolDownHabilidadAliado = 3;
+						if(listaPersonajesEnemigos[0].isMuerto() == true) {
+							contadorMuertesEnemigo++;
+							if(contadorMuertesEnemigo == 3) {
+								dispose();
+								VentanaVictoria ventanaVictoria = new VentanaVictoria(1, usuario1, usuario2);
+				                ventanaVictoria.setVisible(true);
+							}else {
+								ventanaCambiarPersonajeEnemigo(equipoSeleccionadoList, equipoNoSeleccionadoList);
+							}					
+						}
 					}else {
-						JOptionPane.showMessageDialog(null, "No puedes realizar tu habilidad aun espera "+coolDownHabilidadAliado+" turno/s");
+						JOptionPane.showMessageDialog(null, "No puedes realizar tu habilidad aun espera " + coolDownHabilidadAliado + " turno/s");
 					}
 					
 				} else if(turnoAliado == false) {
-					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 2.");
+					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno de " + usuario2);
 				}
 			}
 		});
@@ -229,14 +247,16 @@ public class VentanaCombate extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if(turnoEnemigo == true) {
 					if(listaPersonajesEnemigos[0].getEstamina() <= 0) {
-						JOptionPane.showMessageDialog(null, "No tienes estamina, te sugiero descansar o cambiar de guerrero.");
+						JOptionPane.showMessageDialog(null, usuario2 + ", no tienes estamina, te sugiero descansar o cambiar de guerrero.");
 					}else {
 						listaPersonajesEnemigos[0].calcularDanyo(listaPersonajesAliados[0]);
 						pbSaludAliado.setValue(listaPersonajesAliados[0].getSalud());
 						pbEstaminaEnemigo.setValue(listaPersonajesEnemigos[0].getEstamina());
 						turnoEnemigo = false;
 						turnoAliado = true;
-						reducirCoolDownHabilidad(coolDownHabilidadEnemigo);
+						if(coolDownHabilidadEnemigo>0) {
+							coolDownHabilidadEnemigo--;
+						}
 						if(listaPersonajesAliados[0].isMuerto() == true) {
 							contadorMuertesAliado++;
 							if(contadorMuertesAliado == 3) {
@@ -250,7 +270,7 @@ public class VentanaCombate extends JFrame{
 					}
 									
 				}else if(turnoEnemigo == false) {
-					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 1.");
+					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno de "+usuario1);
 				}
 			}
 		});
@@ -258,17 +278,19 @@ public class VentanaCombate extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if(turnoEnemigo == true) {
 					if(listaPersonajesEnemigos[0].getEstamina() == estaminaMaximaEnemigo) {
-						JOptionPane.showMessageDialog(null, "Tienes la estamina al maximo, te sugiero atacar o cambiar de guerrero");
+						JOptionPane.showMessageDialog(null, usuario2 + ", tienes la estamina al maximo, te sugiero atacar o cambiar de guerrero");
 					}else {
 						listaPersonajesEnemigos[0].descansar();
 						pbEstaminaEnemigo.setValue(listaPersonajesEnemigos[0].getEstamina());
 						turnoEnemigo = false;
 						turnoAliado = true;
-						reducirCoolDownHabilidad(coolDownHabilidadEnemigo);
+						if(coolDownHabilidadEnemigo>0) {
+							coolDownHabilidadEnemigo--;
+						}
 					}
 					
 				}else if(turnoEnemigo == false) {
-					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 1.");
+					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno de " + usuario1);
 				}
 			}
 		});
@@ -280,24 +302,46 @@ public class VentanaCombate extends JFrame{
 					turnoAliado = true;
 					coolDownHabilidadEnemigo = 0;
 				} else if(turnoEnemigo == false) {
-					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 1.");
+					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno de " + usuario1);
 				}
 			}
 		});
 
-		habilidadEnemigo.addActionListener(new ActionListener() {        
+		habilidadEnemigo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(turnoEnemigo == true) {
+					if(coolDownHabilidadEnemigo <= 0) {
+						listaPersonajesEnemigos[0].habilidad(listaPersonajesAliados[0]);
+						pbSaludAliado.setValue(listaPersonajesAliados[0].getSalud());
+						pbSaludEnemigo.setValue(listaPersonajesEnemigos[0].getSalud());
+						pbEstaminaEnemigo.setValue(listaPersonajesEnemigos[0].getEstamina());
+						pbEstaminaAliado.setValue(listaPersonajesAliados[0].getEstamina());
+						turnoAliado = true;
+						turnoEnemigo = false;
+						coolDownHabilidadEnemigo = 3;
+						if(listaPersonajesAliados[0].isMuerto() == true) {
+							contadorMuertesAliado++;
+							if(contadorMuertesAliado == 3) {
+				                dispose();
+								VentanaVictoria ventanaVictoria = new VentanaVictoria(2, usuario1, usuario2);
+				                ventanaVictoria.setVisible(true);
+							}else {
+								ventanaCambiarPersonajeAliado(equipoSeleccionadoList, equipoNoSeleccionadoList);
+							}						
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "No puedes realizar tu habilidad aun espera " + coolDownHabilidadEnemigo + " turno/s");
+					}
 					
-					turnoEnemigo = false;
-					turnoAliado = true;
-				} else if(turnoEnemigo == false) {
-					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno del jugador 1.");
+				} else if(turnoAliado == false) {
+					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno de " + usuario1);
 				}
 			}
 		});
+		
 		panelEnemigo.add(atacarEnemigo);
 		panelEnemigo.add(descansarEnemigo);
+		panelEnemigo.add(habilidadEnemigo);
 		panelEnemigo.add(cambiarPersonajeEnemigo); 
 
 		JPanel panelBotones = new JPanel( new BorderLayout() );
@@ -994,52 +1038,5 @@ public class VentanaCombate extends JFrame{
 		seleccionaPersonaje.setModal(true); // Bloquear la ventana principal mientras esta ventana está abierta
 		seleccionaPersonaje.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		seleccionaPersonaje.setVisible(true);
-	}
-	
-	private void reducirCoolDownHabilidad(int coolDown) {
-		if(coolDown > 0) {
-			coolDown--;
-		}
-	}
-	
-//-------------------------------------------------------------------------------------------------------------------------------------------	
-	private void contadorPartidasConfigProperties() {
-		File configFile = new File("config.properties");
-        Properties props = new Properties();
-        try (InputStream inputStream = new FileInputStream(configFile)) {
-            props.load(inputStream);
-            contadorPartidas = Integer.parseInt(props.getProperty("contadorPartidas", "1"));
-        } catch (IOException e) {
-            // Si el archivo de configuración no existe, se puede crear con un valor inicial de 1
-            System.out.println("No se encontró el archivo de configuración, se creará uno nuevo.");
-        }
-
-        // Incrementar el contador de partidas y mostrar el número de partida actual
-        contadorPartidas++;
-        System.out.println("Partida " + contadorPartidas);
-        // Escribir en log.txt el numero de partida en el que estamos
-        escribirFicheroLog("Partida " + contadorPartidas);
-        // Guardar el valor actual de contadorPartidas en el archivo de configuración
-        props.setProperty("contadorPartidas", Integer.toString(contadorPartidas));
-        try (OutputStream outputStream = new FileOutputStream(configFile)) {
-            props.store(outputStream, "Configuración del juego");
-        } catch (IOException e) {
-            System.out.println("Error al guardar la configuración del juego.");
-        }
-	}
-	
-	private void escribirFicheroLog(String mensaje){
-		try {
-            FileWriter fileWriter = new FileWriter("log.txt", true);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-            bufferedWriter.write(mensaje);
-            bufferedWriter.newLine(); // Agrega una nueva línea para separar el contenido
-
-            bufferedWriter.close();
-            fileWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 	}
 }

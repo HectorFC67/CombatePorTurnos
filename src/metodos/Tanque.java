@@ -7,10 +7,10 @@ public class Tanque extends Personaje{
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public void habilidad() {
+	public void habilidad(Personaje defensor) {
 		// TODO Auto-generated method stub
-		this.salud += recuperacionSalud;
-		
-		
+		defensor.salud -= 15;
+		defensor.estamina -= 2;
+		this.estamina--;
 	}
 }

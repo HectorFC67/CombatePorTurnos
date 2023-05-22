@@ -108,5 +108,5 @@ public abstract class Personaje {
 		return muerto;
 	}
 	
-	public abstract void habilidad();
+	public abstract void habilidad(Personaje defensor);
 }
