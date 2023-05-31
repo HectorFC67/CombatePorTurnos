@@ -11,7 +11,11 @@ import javax.swing.table.TableRowSorter;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
+import metodos.Partida;
 
 public class VentanaHistorial extends JFrame {
 
@@ -27,44 +31,47 @@ public class VentanaHistorial extends JFrame {
         model.addColumn("Victorias");
         model.addColumn("Derrotas");
 
+        List<Partida> partidas = new ArrayList<>();
+
         try (BufferedReader br = new BufferedReader(new FileReader("historial.txt"))) {
             String linea;
             while ((linea = br.readLine()) != null) {
                 String[] partes = linea.split("\t");
                 if (partes.length >= 5) {
                     String usuario = partes[0];
-                    int partidas = Integer.parseInt(partes[2]);
+                    int partidasJugadas = Integer.parseInt(partes[2]);
                     int victorias = Integer.parseInt(partes[3]);
                     int derrotas = Integer.parseInt(partes[4]);
-                    model.addRow(new Object[]{usuario, partidas, victorias, derrotas});
+                    partidas.add(new Partida(usuario, partidasJugadas, victorias, derrotas));
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-      //------------------------------------------------------------------------------------------------------------
+
+        Collections.sort(partidas, new Comparator<Partida>() {
+            @Override
+            public int compare(Partida p1, Partida p2) {
+                int diferencia1 = p1.getVictorias() - p1.getDerrotas();
+                int diferencia2 = p2.getVictorias() - p2.getDerrotas();
+                if (diferencia1 == diferencia2) {
+                    // Si las diferencias son iguales, se compara por victorias
+                    return p2.getVictorias() - p1.getVictorias();
+                } else {
+                    // Se compara por la diferencia
+                    return diferencia2 - diferencia1;
+                }
+            }
+        });
+
+        for (Partida partida : partidas) {
+            model.addRow(new Object[]{partida.getUsuario(), partida.getPartidasJugadas(), partida.getVictorias(), partida.getDerrotas()});
+        }
+
         JTable table = new JTable(model);
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
         table.setRowSorter(sorter);
 
-        Comparator<Object> victoriasDerrotasComparator = (obj1, obj2) -> {
-        	System.out.println( "comparator " + obj1 + "," + obj2 );
-            int victorias1 = (int) obj1;
-            int derrotas1 = (int) table.getValueAt(table.convertRowIndexToModel(table.getRowSorter().convertRowIndexToView(table.getSelectedRow())), 3);
-            int victorias2 = (int) obj2;
-            int derrotas2 = (int) table.getValueAt(table.convertRowIndexToModel(table.getRowSorter().convertRowIndexToView(table.getSelectedRow())), 3);
-            int diferencia1 = victorias1 - derrotas1;
-            int diferencia2 = victorias2 - derrotas2;
-            if (diferencia1 == diferencia2) {
-                // Si las diferencias son iguales, se compara por victorias
-                return victorias2 - victorias1;
-            } else {
-                // Se compara por la diferencia
-                return diferencia2 - diferencia1;
-            }
-        };
-        sorter.setComparator(2, victoriasDerrotasComparator);
-      //------------------------------------------------------------------------------------------------------------
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(580, 350));
         getContentPane().add(scrollPane, BorderLayout.CENTER);
