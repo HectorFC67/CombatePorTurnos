@@ -41,7 +41,7 @@ public class VentanaCombatePrevio extends JFrame {
 
 		// Equipo seleccionado
 		JPanel panelEquipoSeleccionado = new JPanel(new BorderLayout());
-		JLabel labelEquipoSeleccionado = new JLabel("Equipo 1: " + equipoSeleccionadoList[0] + ", " + equipoSeleccionadoList[1] + " y " + equipoSeleccionadoList[2]);
+		JLabel labelEquipoSeleccionado = new JLabel(usuario1 + ": " + equipoSeleccionadoList[0] + ", " + equipoSeleccionadoList[1] + " y " + equipoSeleccionadoList[2]);
 		panelEquipoSeleccionado.add(labelEquipoSeleccionado, BorderLayout.NORTH);
 
 		JPanel panelJugadoresEquipoSeleccionado = new JPanel();
@@ -107,7 +107,7 @@ public class VentanaCombatePrevio extends JFrame {
 
 		// Equipo no seleccionado
 		JPanel panelEquipoNoSeleccionado = new JPanel(new BorderLayout());
-		JLabel labelEquipoNoSeleccionado = new JLabel("Equipo 2: " + equipoNoSeleccionadoList[0] + ", " + equipoNoSeleccionadoList[1] + " y " + equipoNoSeleccionadoList[2]);
+		JLabel labelEquipoNoSeleccionado = new JLabel(usuario2 + ": " + equipoNoSeleccionadoList[0] + ", " + equipoNoSeleccionadoList[1] + " y " + equipoNoSeleccionadoList[2]);
 		panelEquipoNoSeleccionado.add(labelEquipoNoSeleccionado, BorderLayout.NORTH);
 
 		JPanel panelJugadoresEquipoNoSeleccionado = new JPanel();

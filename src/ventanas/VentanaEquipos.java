@@ -45,7 +45,7 @@ public class VentanaEquipos extends JFrame {
 		JButton botonGenerar = new JButton("Generar equipos");
 		botonGenerar.addActionListener(e -> generarEquipos());
 
-		JButton botonSeleccionar = new JButton("Seleccionar mi equipo");
+		JButton botonSeleccionar = new JButton("Seleccionar equipo de "+usuario1);
 		botonSeleccionar.addActionListener(e -> seleccionarEquipo(usuario1, usuario2));
 
 		JPanel panelBoton = new JPanel();

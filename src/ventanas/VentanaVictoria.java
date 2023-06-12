@@ -20,10 +20,10 @@ public class VentanaVictoria extends JFrame {
         mensaje.setVerticalAlignment(JLabel.CENTER);
 
         if (equipoGanador == 1) {
-            mensaje.setText("Ha ganado el equipo 1, ¡felicidades!");
+            mensaje.setText("Ha ganado " + usuario1 + ", ¡felicidades!");
             actualizarHistorial(usuario1, usuario2, true);
         } else if (equipoGanador == 2) {
-            mensaje.setText("Ha ganado el equipo 2, ¡felicidades!");
+            mensaje.setText("Ha ganado el "+ usuario2 + ", ¡felicidades!");
             actualizarHistorial(usuario1, usuario2, false);
         } else {
             mensaje.setText("Valor inválido");
