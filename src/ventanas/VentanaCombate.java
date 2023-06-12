@@ -167,6 +167,7 @@ public class VentanaCombate extends JFrame{
 				
 			}
 		});
+		
 		descansarAliado.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
 				if(turnoAliado == true) {
@@ -186,17 +187,23 @@ public class VentanaCombate extends JFrame{
 				}
 			}
 		});
-		cambiarPersonajeAliado.addActionListener(new ActionListener() {        
-			public void actionPerformed(ActionEvent e) {
-					if(turnoAliado == true) {
-						ventanaCambiarPersonajeAliado(equipoSeleccionadoList, equipoNoSeleccionadoList);
-						turnoAliado = false;
-						turnoEnemigo = true;
-						coolDownHabilidadAliado = 0;
-					} else if(turnoAliado == false) {
-						JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno de " + usuario2);
-					}
-			}
+		
+		cambiarPersonajeAliado.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        if (turnoAliado) {
+		            if (contadorMuertesAliado == 2) {
+		                cambiarPersonajeAliado.setEnabled(false);
+		                JOptionPane.showMessageDialog(null, "No puedes cambiar de personaje. Has alcanzado el límite de muertes aliadas.");
+		            } else {
+		                ventanaCambiarPersonajeAliado(equipoSeleccionadoList, equipoNoSeleccionadoList);
+		                turnoAliado = false;
+		                turnoEnemigo = true;
+		                coolDownHabilidadAliado = 0;
+		            }
+		        } else {
+		            JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno de " + usuario2);
+		        }
+		    }
 		});
 		
 		habilidadAliado.addActionListener(new ActionListener() {
@@ -274,6 +281,7 @@ public class VentanaCombate extends JFrame{
 				}
 			}
 		});
+		
 		descansarEnemigo.addActionListener(new ActionListener() {        
 			public void actionPerformed(ActionEvent e) {
 				if(turnoEnemigo == true) {
@@ -294,18 +302,25 @@ public class VentanaCombate extends JFrame{
 				}
 			}
 		});
-		cambiarPersonajeEnemigo.addActionListener(new ActionListener() {        
-			public void actionPerformed(ActionEvent e) {
-				if(turnoEnemigo == true) {
-					ventanaCambiarPersonajeEnemigo(equipoSeleccionadoList, equipoNoSeleccionadoList);
-					turnoEnemigo = false;
-					turnoAliado = true;
-					coolDownHabilidadEnemigo = 0;
-				} else if(turnoEnemigo == false) {
-					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno de " + usuario1);
-				}
-			}
+		
+		cambiarPersonajeEnemigo.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        if (turnoEnemigo) {
+		            if (contadorMuertesEnemigo == 2) {
+		                cambiarPersonajeEnemigo.setEnabled(false);
+		                JOptionPane.showMessageDialog(null, "No puedes cambiar de personaje. Has alcanzado el límite de muertes enemigas.");
+		            } else {
+		                ventanaCambiarPersonajeEnemigo(equipoSeleccionadoList, equipoNoSeleccionadoList);
+		                turnoAliado = true;
+		                turnoEnemigo = false;
+		                coolDownHabilidadEnemigo = 0;
+		            }
+		        } else {
+		            JOptionPane.showMessageDialog(null, "No puedes realizar ninguna acción porque es el turno de " + usuario1);
+		        }
+		    }
 		});
+
 
 		habilidadEnemigo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -1,3 +1,3 @@
-jugador1	astra	4	3	1
-jugador2	hola	5	0	5
+jugador1	astra	6	5	1
+jugador2	hola	7	0	7
 paco123	123	3	3	0
