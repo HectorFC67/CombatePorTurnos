@@ -83,7 +83,6 @@ public abstract class Personaje {
 			danyo = danyo - danyo/2;
 		}
 		defensor.salud -= danyo;
-		System.out.println(danyo+"-->"+defensor.salud);
 		this.estamina --;
 	}
 	public void descansar() {
