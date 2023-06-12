@@ -184,7 +184,7 @@ public class VentanaCombatePrevio extends JFrame {
 		// anadir paneles
 		add(panel);
 
-
+		setLocationRelativeTo(null);
 
 		setVisible(true);
 	}

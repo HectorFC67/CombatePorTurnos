@@ -26,12 +26,14 @@ public class VentanaHistorial extends JFrame {
         setLocationRelativeTo(null);
 
         DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Puesto");
         model.addColumn("Usuario");
         model.addColumn("Partidas jugadas");
         model.addColumn("Victorias");
         model.addColumn("Derrotas");
 
         List<Partida> partidas = new ArrayList<>();
+        int puesto = 1;
 
         try (BufferedReader br = new BufferedReader(new FileReader("historial.txt"))) {
             String linea;
@@ -65,10 +67,14 @@ public class VentanaHistorial extends JFrame {
         });
 
         for (Partida partida : partidas) {
-            model.addRow(new Object[]{partida.getUsuario(), partida.getPartidasJugadas(), partida.getVictorias(), partida.getDerrotas()});
+            model.addRow(new Object[]{puesto, partida.getUsuario(), partida.getPartidasJugadas(), partida.getVictorias(), partida.getDerrotas()});
+            puesto++;
         }
 
         JTable table = new JTable(model);
+        table.getColumnModel().getColumn(0).setPreferredWidth(50);
+
+        
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
         table.setRowSorter(sorter);
 
